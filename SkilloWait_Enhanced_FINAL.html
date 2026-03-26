@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SkilloWait — AI Aptitude Trainer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
@@ -1347,56 +1348,153 @@ body.mobile-view #frole-faculty,body.mobile-view #frole-cadmin{font-size:11px;pa
   <div id="ptab-content"></div>
 </div>
 
-<!-- ══ RESUME BUILDER ══ -->
+<!-- ══ RESUME BUILDER — COLLEGE MODULE ══ -->
 <div class="screen" id="screen-resume">
-  <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between">
-    <div><div class="pt">Resume Builder</div><div class="ps">Build from your SkilloWait profile or enhance an existing document</div></div>
-    <span class="badge ba">2 builds remaining</span>
-  </div>
-  <div style="display:flex;gap:8px;margin-bottom:16px">
-    <button class="btn btn-p btn-sm" id="rb-fb" onclick="setRM('fresh')">Build from Profile</button>
-    <button class="btn btn-o btn-sm" id="rb-ub" onclick="setRM('upload')">Upload Existing Doc</button>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 310px;gap:16px">
-    <div>
-      <div id="rb-fresh">
-        <div class="card" style="margin-bottom:12px;background:var(--accent-l);border-color:rgba(27,111,230,.14)">
-          <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:3px">Pre-filled from your SkilloWait data</div>
-          <div style="font-size:11.5px;color:var(--muted)">Aptitude scores, accuracy rates, and achievements auto-imported.</div>
-        </div>
-        <div class="rs"><div class="rsh"><div class="rstit">Professional Summary</div><span class="rsai">AI wrote this</span></div><div class="rsb">Your AI-generated professional summary will appear here based on your SkilloWait aptitude data.</div></div>
-        <div class="rs"><div class="rsh"><div class="rstit">Skills</div><span class="rsai" style="background:var(--teal-l);color:var(--teal)">From SkilloWait</span></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px"><span class="badge" style="color:var(--muted);border-color:var(--border2)">Complete a test to populate skills</span></div></div>
-        <div class="rs"><div class="rsh"><div class="rstit">Achievements</div><span class="rsai">AI converted</span></div><div class="rsb" style="color:var(--faint);font-style:italic">Your aptitude achievements and badges will be listed here after you complete practice sessions.</div></div>
-        <div class="rs"><div class="rsh"><div class="rstit">Education</div><div style="font-size:11px;color:var(--muted)">Add manually</div></div><div class="rsb" style="color:var(--faint);font-style:italic">Click to add your college, degree, and year</div></div>
+  <div style="max-width:1400px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:28px;font-weight:700;background:linear-gradient(135deg,#1e3c72,#2b4c8c);-webkit-background-clip:text;background-clip:text;color:transparent">Resume Builder — College Module</div>
+        <div style="color:#5a6e7c;font-size:13px;margin-top:4px">Type bar updates instantly · Dynamic PDF export with template style</div>
       </div>
-      <div id="rb-upload" style="display:none">
-        <div style="border:2px dashed var(--faint);border-radius:var(--r);padding:40px 24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface)" onclick="simulateUpload()" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--faint)'">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="1.5" style="display:block;margin:0 auto 12px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">Drop your resume here</div>
-          <div style="font-size:12px;color:var(--muted)">PDF, DOCX, DOC — max 5MB</div>
-          <div id="upload-status" style="margin-top:12px;font-size:12px;color:var(--accent);display:none"></div>
+      <div style="background:#e9ecef;padding:6px 14px;border-radius:40px;font-size:12px;font-weight:600;color:#2c5a8c;border:1px solid #cddfe7">Live Editor</div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+      <button class="btn btn-p btn-sm" onclick="setRM('fresh')" style="background:#1e3c72;border:1px solid #1e3c72;color:white;padding:10px 20px;border-radius:40px;font-weight:600;font-size:13px;cursor:pointer">Build from Profile</button>
+      <button class="btn btn-o btn-sm" onclick="setRM('upload')" style="background:white;border:1px solid #b9cad6;color:#1e3c72;padding:10px 20px;border-radius:40px;font-weight:600;font-size:13px;cursor:pointer">Upload Existing Doc</button>
+    </div>
+
+    <div style="background:white;border-radius:20px;padding:18px 20px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,0.02),0 1px 2px rgba(0,0,0,0.05);border:1px solid #e2edf2">
+      <div style="font-weight:700;font-size:14px;margin-bottom:14px;color:#1f3a5f">Choose Resume Template</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div class="template-card active" data-template="classic" onclick="setResumeTemplate('classic')" style="background:#f9fbfd;border:1.5px solid #e2edf2;border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s">
+          <div style="font-size:28px;margin-bottom:6px;font-weight:700">A</div>
+          <div style="font-size:12px;font-weight:600">Classic</div>
+        </div>
+        <div class="template-card" data-template="modern" onclick="setResumeTemplate('modern')" style="background:#f9fbfd;border:1.5px solid #e2edf2;border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s">
+          <div style="font-size:28px;margin-bottom:6px;font-weight:700">M</div>
+          <div style="font-size:12px;font-weight:600">Modern</div>
+        </div>
+        <div class="template-card" data-template="minimal" onclick="setResumeTemplate('minimal')" style="background:#f9fbfd;border:1.5px solid #e2edf2;border-radius:16px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s">
+          <div style="font-size:28px;margin-bottom:6px;font-weight:700">C</div>
+          <div style="font-size:12px;font-weight:600">Minimal</div>
         </div>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="card">
-        <div class="ct">ATS Score</div>
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
-          <div class="ats-r">78</div>
-          <div><div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px">Score: 78/100</div><div style="font-size:12px;color:var(--muted);margin-bottom:8px">Add 3 keywords for 90+</div><div style="display:flex;gap:5px;flex-wrap:wrap"><span class="badge ba">REST API</span><span class="badge ba">Agile</span></div></div>
+
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:24px">
+      <div>
+        <div class="card" style="background:white;border-radius:24px;padding:20px;margin-bottom:24px;border:1px solid #e2edf2;box-shadow:0 4px 12px rgba(0,0,0,0.02)">
+          <div style="font-weight:700;font-size:16px;margin-bottom:18px;color:#1f3a5f;display:flex;align-items:center;gap:8px;border-left:4px solid #1e6fdf;padding-left:12px">Type Bar — Edit Resume in Real Time</div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+            <div>
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">FULL NAME</div>
+              <input type="text" id="editName" placeholder="Your full name" value="Alex Morgan" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">TITLE / HEADLINE</div>
+              <input type="text" id="editTitle" placeholder="e.g. Full Stack Developer" value="Computer Science Student & Frontend Intern" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+            <div>
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">EMAIL</div>
+              <input type="email" id="editEmail" placeholder="email@college.edu" value="alex.morgan@university.edu" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">PHONE</div>
+              <input type="text" id="editPhone" placeholder="+1 234 567 890" value="+1 987 654 3210" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">LOCATION</div>
+              <input type="text" id="editLocation" placeholder="City, Country" value="San Francisco, CA" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+            </div>
+          </div>
+
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">PROFESSIONAL SUMMARY</div>
+            <textarea id="editSummary" rows="2" placeholder="Brief introduction about yourself..." style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit;resize:vertical" onchange="syncResumeFields()">Ambitious Computer Science student with 3+ years of project experience in web development and data analytics. Strong aptitude in problem-solving, team collaboration, and building scalable applications.</textarea>
+          </div>
+
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">SKILLS (comma separated)</div>
+            <input type="text" id="editSkills" placeholder="React, Python, SQL, Figma, Node.js" value="React, JavaScript, Python, Node.js, SQL, Tailwind CSS, Git" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+          </div>
+
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">EXPERIENCE</div>
+            <input type="text" id="editExpCompany" placeholder="Company name" value="TechSolutions Inc." style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit;margin-bottom:8px" onchange="syncResumeFields()">
+            <div style="display:flex;gap:10px;margin-bottom:8px">
+              <input type="text" id="editExpTitle" placeholder="Job title" value="Frontend Developer Intern" style="flex:1;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+              <input type="text" id="editExpDuration" placeholder="Duration" value="Jun 2024 – Present" style="flex:1;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit" onchange="syncResumeFields()">
+            </div>
+            <textarea id="editExpDesc" rows="2" placeholder="Description of achievements" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit;resize:vertical" onchange="syncResumeFields()">Developed responsive components using React and Tailwind, improved performance by 20%. Collaborated with design team to implement UI/UX mockups and integrated RESTful APIs.</textarea>
+          </div>
+
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">EDUCATION</div>
+            <textarea id="editEducation" rows="2" placeholder="Degree, University, Year, GPA" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit;resize:vertical" onchange="syncResumeFields()">B.S. in Computer Science, Stanford University, 2023–2027 | GPA: 3.8/4.0</textarea>
+          </div>
+
+          <div>
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:#5b7a9a;margin-bottom:4px">ACHIEVEMENTS</div>
+            <textarea id="editAchievements" rows="3" placeholder="Award 1&#10;Award 2" style="width:100%;padding:10px 12px;border:1px solid #dce5ec;border-radius:14px;font-size:13px;background:#ffffff;transition:0.15s;font-family:inherit;resize:vertical" onchange="syncResumeFields()">Dean's List 2024, 2025
+Hackathon Winner - CodeFest 2024
+Published Technical Blog on React Performance</textarea>
+          </div>
         </div>
-        <button class="btn btn-green btn-sm" style="width:100%;justify-content:center" onclick="showToast('AI added keywords — ATS score now 93/100!')">Fix with AI ↑</button>
-      </div>
-      <div class="card">
-        <div class="ct">Templates</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-          <div style="background:var(--accent-l);border:2px solid var(--accent);border-radius:var(--r2);padding:10px;cursor:pointer;text-align:center"><div style="font-size:11px;font-weight:700;color:var(--accent)">Classic</div><div style="font-size:10px;color:var(--muted)">Active</div></div>
-          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:10px;cursor:pointer;text-align:center;opacity:.6"><div style="font-size:11px;color:var(--muted)">Modern</div><div style="font-size:10px;color:var(--faint)">Pro</div></div>
-          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:10px;cursor:pointer;text-align:center;opacity:.6"><div style="font-size:11px;color:var(--muted)">ATS-safe</div><div style="font-size:10px;color:var(--faint)">Pro</div></div>
-          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:10px;cursor:pointer;text-align:center;opacity:.6"><div style="font-size:11px;color:var(--muted)">Two-col</div><div style="font-size:10px;color:var(--faint)">Pro</div></div>
+
+        <div style="background:white;border-radius:24px;border:1px solid #e2edf2;overflow:hidden">
+          <div style="background:#f8fafd;padding:14px 20px;border-bottom:1px solid #e2edf2;font-weight:700;font-size:14px">Live Resume Preview (updates as you type)</div>
+          <div id="resumeExportArea" style="padding:4px;background:white"></div>
+        </div>
+
+        <div id="uploadSection" style="display:none;margin-top:20px">
+          <div style="background:white;border-radius:24px;padding:20px;border:1px solid #e2edf2;box-shadow:0 4px 12px rgba(0,0,0,0.02)">
+            <div style="font-weight:700;font-size:16px;margin-bottom:18px;color:#1f3a5f;display:flex;align-items:center;gap:8px;border-left:4px solid #1e6fdf;padding-left:12px">Upload Resume Document</div>
+            <div id="uploadDropZone" style="border:2px dashed #cbdde9;border-radius:20px;padding:28px 16px;text-align:center;cursor:pointer;transition:0.2s;background:#fafdff" onclick="document.getElementById('resumeFileInput').click()">
+              <div style="font-size:28px;font-weight:700;color:#1e6fdf">UP</div>
+              <div style="font-weight:600;margin-top:8px">Click or drop your resume</div>
+              <div style="font-size:12px;color:#5f7f9e">PDF, DOC, DOCX — auto-fills Type Bar fields</div>
+              <div id="uploadStatusMsg" style="margin-top:12px;font-size:13px;color:#2b6e3c"></div>
+            </div>
+            <input type="file" id="resumeFileInput" accept=".pdf,.doc,.docx" style="display:none">
+          </div>
         </div>
       </div>
-      <button class="btn btn-p" style="width:100%;justify-content:center;padding:12px" onclick="showToast('Resume exported as PDF ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export as PDF</button>
+
+      <div>
+        <div style="background:white;border-radius:24px;padding:20px;border:1px solid #e2edf2;margin-bottom:24px">
+          <div style="font-weight:700;font-size:16px;margin-bottom:16px;color:#1f3a5f;display:flex;align-items:center;gap:8px;border-left:4px solid #2c7a4d;padding-left:12px">ATS Compatibility Score</div>
+          <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:16px">
+            <div style="width:80px;height:80px;border-radius:50%;background:#eef3fc;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#1e6fdf;border:3px solid #1e6fdf" id="atsScoreCircle">82</div>
+            <div>
+              <div style="font-weight:800;font-size:19px"><span id="atsScoreNumber">82</span>/100</div>
+              <div style="font-size:11px;color:#4b6f8e">Keyword optimization</div>
+              <div id="keywordSuggestions" style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0">
+                <span style="background:#f0f4f9;padding:4px 12px;border-radius:30px;font-size:11px;font-weight:500">React</span>
+                <span style="background:#f0f4f9;padding:4px 12px;border-radius:30px;font-size:11px;font-weight:500">Node.js</span>
+                <span style="background:#f0f4f9;padding:4px 12px;border-radius:30px;font-size:11px;font-weight:500">API</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-p" onclick="boostAtsResume()" style="width:100%;justify-content:center;margin-top:20px;background:#1e3c72;border:1px solid #1e3c72;color:white;padding:10px 20px;border-radius:40px;font-weight:600;font-size:13px;cursor:pointer">Boost ATS with AI Keywords</button>
+          <hr style="margin:16px 0;border-color:#e9f0f5">
+          <button class="btn btn-p" onclick="exportPdfResume()" style="width:100%;justify-content:center;background:#1f5e3a;border:1px solid #1f5e3a;color:white;padding:10px 20px;border-radius:40px;font-weight:600;font-size:13px;cursor:pointer;margin-top:8px">Export as PDF (Dynamic Template)</button>
+          <div style="font-size:11px;text-align:center;margin-top:12px;color:#6c8eaa">Generates PDF according to selected template</div>
+        </div>
+        <div style="background:white;border-radius:24px;padding:20px;border:1px solid #e2edf2">
+          <div style="font-weight:700;font-size:16px;margin-bottom:12px;color:#1f3a5f;display:flex;align-items:center;gap:8px;border-left:4px solid #d97706;padding-left:12px">Tips</div>
+          <ul style="font-size:12px;margin-left:18px;color:#2c4c6e;line-height:1.8">
+            <li>Type bar updates resume preview instantly</li>
+            <li>Switch template to change PDF style</li>
+            <li>Click "Export as PDF" to download resume</li>
+            <li>Upload document → fields auto-populate</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -7496,7 +7594,234 @@ function downloadAdminReport() {
   showToast('✓ Report downloaded');
 }
 
+// ════ RESUME BUILDER COLLEGE MODULE FUNCTIONS ════
+let resumeCurrentTemplate = 'classic';
+let resumeData = {
+  name: 'Alex Morgan',
+  title: 'Computer Science Student & Frontend Intern',
+  email: 'alex.morgan@university.edu',
+  phone: '+1 987 654 3210',
+  location: 'San Francisco, CA',
+  summary: 'Ambitious Computer Science student with 3+ years of project experience in web development and data analytics.',
+  skills: ['React', 'JavaScript', 'Python', 'Node.js', 'SQL', 'Tailwind CSS', 'Git'],
+  company: 'TechSolutions Inc.',
+  expTitle: 'Frontend Developer Intern',
+  duration: 'Jun 2024 – Present',
+  expDesc: 'Developed responsive components using React and Tailwind, improved performance by 20%.',
+  education: 'B.S. in Computer Science, Stanford University, 2023–2027 | GPA: 3.8/4.0',
+  achievements: ['Dean\'s List 2024, 2025', 'Hackathon Winner - CodeFest 2024', 'Published Technical Blog on React Performance']
+};
 
+function setRM(mode) {
+  const fresh = document.getElementById('rb-fresh');
+  const upload = document.getElementById('rb-upload');
+  const uploadSection = document.getElementById('uploadSection');
+  if (mode === 'fresh') {
+    if(uploadSection) uploadSection.style.display = 'none';
+  } else {
+    if(uploadSection) uploadSection.style.display = 'block';
+  }
+}
+
+function setResumeTemplate(tpl) {
+  resumeCurrentTemplate = tpl;
+  document.querySelectorAll('.template-card').forEach(card => {
+    if(card.getAttribute('data-template') === tpl) {
+      card.style.borderColor = '#1e6fdf';
+      card.style.background = '#ecf5ff';
+      card.style.boxShadow = '0 2px 6px rgba(30,111,223,0.1)';
+    } else {
+      card.style.borderColor = '#e2edf2';
+      card.style.background = '#f9fbfd';
+      card.style.boxShadow = 'none';
+    }
+  });
+  syncResumeFields();
+}
+
+function syncResumeFields() {
+  resumeData.name = document.getElementById('editName')?.value || '';
+  resumeData.title = document.getElementById('editTitle')?.value || '';
+  resumeData.email = document.getElementById('editEmail')?.value || '';
+  resumeData.phone = document.getElementById('editPhone')?.value || '';
+  resumeData.location = document.getElementById('editLocation')?.value || '';
+  resumeData.summary = document.getElementById('editSummary')?.value || '';
+  resumeData.company = document.getElementById('editExpCompany')?.value || '';
+  resumeData.expTitle = document.getElementById('editExpTitle')?.value || '';
+  resumeData.duration = document.getElementById('editExpDuration')?.value || '';
+  resumeData.expDesc = document.getElementById('editExpDesc')?.value || '';
+  resumeData.education = document.getElementById('editEducation')?.value || '';
+  
+  const skillsStr = document.getElementById('editSkills')?.value || '';
+  resumeData.skills = skillsStr.split(',').map(s => s.trim()).filter(s => s);
+  
+  const achievementsStr = document.getElementById('editAchievements')?.value || '';
+  resumeData.achievements = achievementsStr.split('\n').filter(s => s.trim());
+  
+  renderResumePreview();
+  updateAtsScore();
+}
+
+function renderResumePreview() {
+  const container = document.getElementById('resumeExportArea');
+  if (!container) return;
+  
+  const d = resumeData;
+  const skillsHtml = d.skills.map(s => `<span style="display:inline-block;background:#eef2ff;padding:4px 12px;border-radius:30px;font-size:11px;margin:3px 4px 3px 0;">${escapeHtmlResume(s)}</span>`).join('');
+  const achievementsHtml = d.achievements.map(a => `<li style="margin-left:20px;font-size:12px;">${escapeHtmlResume(a)}</li>`).join('');
+  
+  let html = '';
+  if (resumeCurrentTemplate === 'classic') {
+    html = `<div style="background:white;font-family:'Segoe UI',system-ui;padding:0">
+      <div style="background:linear-gradient(135deg,#1e3c72,#2b4f8c);color:white;padding:24px 28px">
+        <div style="font-size:26px;font-weight:700">${escapeHtmlResume(d.name)}</div>
+        <div style="font-size:14px;opacity:0.9;margin:5px 0">${escapeHtmlResume(d.title)}</div>
+        <div style="display:flex;gap:18px;font-size:11px;flex-wrap:wrap;margin-top:8px">${escapeHtmlResume(d.email)} &nbsp; ${escapeHtmlResume(d.phone)} &nbsp; ${escapeHtmlResume(d.location)}</div>
+      </div>
+      <div style="padding:18px 28px;border-bottom:1px solid #e9edf2"><div style="font-weight:700;font-size:14px;color:#1e3c72">Summary</div><div style="font-size:13px;margin-top:6px">${escapeHtmlResume(d.summary)}</div></div>
+      <div style="padding:18px 28px;border-bottom:1px solid #e9edf2"><div style="font-weight:700;font-size:14px;color:#1e3c72">Skills</div><div style="margin-top:8px">${skillsHtml}</div></div>
+      <div style="padding:18px 28px;border-bottom:1px solid #e9edf2"><div style="font-weight:700;font-size:14px;color:#1e3c72">Experience</div><div style="font-weight:600;font-size:14px">${escapeHtmlResume(d.expTitle)} @ ${escapeHtmlResume(d.company)}</div><div style="font-size:11px;color:#5c7c9e">${escapeHtmlResume(d.duration)}</div><div style="font-size:12px;margin-top:6px">${escapeHtmlResume(d.expDesc)}</div></div>
+      <div style="padding:18px 28px;border-bottom:1px solid #e9edf2"><div style="font-weight:700;font-size:14px;color:#1e3c72">Education</div><div style="font-size:12px">${escapeHtmlResume(d.education)}</div></div>
+      <div style="padding:18px 28px"><div style="font-weight:700;font-size:14px;color:#1e3c72">Achievements</div><ul style="margin-top:6px">${achievementsHtml}</ul></div>
+    </div>`;
+  } else if (resumeCurrentTemplate === 'modern') {
+    html = `<div style="background:white;font-family:'Inter',system-ui;border-top:5px solid #2b6fdf;padding:0">
+      <div style="display:flex;justify-content:space-between;padding:24px 28px;background:#fafcff;flex-wrap:wrap">
+        <div><div style="font-size:28px;font-weight:800">${escapeHtmlResume(d.name)}</div><div style="color:#2b6fdf;font-weight:500">${escapeHtmlResume(d.title)}</div></div>
+        <div style="text-align:right;font-size:12px">${escapeHtmlResume(d.email)}<br>${escapeHtmlResume(d.phone)}<br>${escapeHtmlResume(d.location)}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:20px 28px">
+        <div><div style="font-weight:700">Skills</div>${skillsHtml}<div style="margin-top:20px;font-weight:700">Education</div><div style="font-size:12px">${escapeHtmlResume(d.education)}</div></div>
+        <div><div style="font-weight:700">Profile</div><div style="font-size:13px">${escapeHtmlResume(d.summary)}</div><div style="margin-top:16px;font-weight:700">Experience</div><div><strong>${escapeHtmlResume(d.expTitle)}</strong> at ${escapeHtmlResume(d.company)} (${escapeHtmlResume(d.duration)})</div><div style="font-size:12px">${escapeHtmlResume(d.expDesc)}</div><div style="margin-top:14px;font-weight:700">Achievements</div><ul>${achievementsHtml}</ul></div>
+      </div>
+    </div>`;
+  } else {
+    html = `<div style="background:white;font-family:system-ui;padding:20px">
+      <div style="border-bottom:2px solid #ccc;padding-bottom:10px"><div style="font-size:28px;font-weight:600">${escapeHtmlResume(d.name)}</div><div>${escapeHtmlResume(d.title)} | ${escapeHtmlResume(d.email)} | ${escapeHtmlResume(d.phone)}</div></div>
+      <div style="margin:12px 0"><strong>Summary</strong><div>${escapeHtmlResume(d.summary)}</div></div>
+      <div><strong>Skills</strong><div>${d.skills.join(' · ')}</div></div>
+      <div style="margin:12px 0"><strong>Experience</strong><div><em>${escapeHtmlResume(d.expTitle)} @ ${escapeHtmlResume(d.company)}</em> (${escapeHtmlResume(d.duration)})<br>${escapeHtmlResume(d.expDesc)}</div></div>
+      <div><strong>Education</strong><div>${escapeHtmlResume(d.education)}</div></div>
+      <div><strong>Achievements</strong><ul>${achievementsHtml}</ul></div>
+    </div>`;
+  }
+  
+  container.innerHTML = html;
+}
+
+function escapeHtmlResume(str) {
+  if (!str) return '';
+  return str.replace(/[&<>]/g, m => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;'
+  }[m] || m));
+}
+
+function updateAtsScore() {
+  let score = 55;
+  const skillsStr = (resumeData.skills || []).join(' ').toLowerCase();
+  const keywords = ['react', 'python', 'javascript', 'node', 'sql', 'api', 'rest', 'full stack', 'frontend', 'backend', 'cloud', 'git', 'agile', 'ci/cd'];
+  let matchCount = 0;
+  keywords.forEach(kw => { if (skillsStr.includes(kw)) matchCount++; });
+  score += Math.min(30, matchCount * 3);
+  if (resumeData.expDesc && resumeData.expDesc.length > 40) score += 5;
+  if (resumeData.achievements.length >= 2) score += 5;
+  if (resumeData.summary && resumeData.summary.length > 30) score += 3;
+  score = Math.min(100, score);
+  
+  const scoreCircle = document.getElementById('atsScoreCircle');
+  const scoreNum = document.getElementById('atsScoreNumber');
+  if (scoreCircle) scoreCircle.textContent = score;
+  if (scoreNum) scoreNum.textContent = score;
+  
+  const suggestions = [];
+  if (!skillsStr.includes('react')) suggestions.push('React');
+  if (!skillsStr.includes('node')) suggestions.push('Node.js');
+  if (!skillsStr.includes('api')) suggestions.push('REST API');
+  if (!skillsStr.includes('agile')) suggestions.push('Agile');
+  
+  const suggestDiv = document.getElementById('keywordSuggestions');
+  if (suggestDiv) {
+    if (suggestions.length) {
+      suggestDiv.innerHTML = suggestions.map(s => `<span style="background:#f0f4f9;padding:4px 12px;border-radius:30px;font-size:11px;font-weight:500">${s}</span>`).join('');
+    } else {
+      suggestDiv.innerHTML = '<span style="background:#f0f4f9;padding:4px 12px;border-radius:30px;font-size:11px;font-weight:500">Great keyword coverage!</span>';
+    }
+  }
+}
+
+function boostAtsResume() {
+  let newSkills = [...resumeData.skills];
+  const currentSkillsLower = resumeData.skills.map(s => s.toLowerCase());
+  if (!currentSkillsLower.some(s => s.includes('rest'))) newSkills.push('REST API');
+  if (!currentSkillsLower.some(s => s.includes('agile'))) newSkills.push('Agile Methodology');
+  if (!currentSkillsLower.some(s => s.includes('ci/cd'))) newSkills.push('CI/CD');
+  if (!currentSkillsLower.some(s => s.includes('graphql'))) newSkills.push('GraphQL');
+  
+  resumeData.skills = [...new Set(newSkills)];
+  const editSkills = document.getElementById('editSkills');
+  if (editSkills) editSkills.value = resumeData.skills.join(', ');
+  
+  syncResumeFields();
+  showToast('ATS keywords added: REST API, Agile, CI/CD, GraphQL');
+}
+
+function exportPdfResume() {
+  const element = document.getElementById('resumeExportArea');
+  if (!element) {
+    showToast('Resume preview not found');
+    return;
+  }
+  
+  // Clone the element to avoid modifying the original
+  const clonedElement = element.cloneNode(true);
+  
+  // Remove any inline event listeners and IDs
+  clonedElement.id = '';
+  
+  // Ensure the cloned element has proper styling
+  clonedElement.style.margin = '0';
+  clonedElement.style.padding = '20px';
+  clonedElement.style.background = 'white';
+  
+  try {
+    const opt = {
+      margin: 10,
+      filename: `${resumeData.name.replace(/\s+/g, '_')}_Resume.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, letterRendering: true, useCORS: true, allowTaint: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    if (typeof html2pdf !== 'undefined') {
+      html2pdf().set(opt).from(clonedElement).save().then(() => {
+        showToast('Resume downloaded successfully');
+      }).catch(err => {
+        console.error('PDF export error:', err);
+        showToast('Error exporting PDF. Please try again.');
+      });
+    } else {
+      showToast('PDF export library not loaded. Please refresh the page.');
+    }
+  } catch (error) {
+    console.error('PDF export error:', error);
+    showToast('Error generating PDF: ' + error.message);
+  }
+}
+
+// Initialize Resume Builder
+document.addEventListener('DOMContentLoaded', function() {
+  const editInputs = ['editName', 'editTitle', 'editEmail', 'editPhone', 'editLocation', 'editSummary', 'editSkills', 'editExpCompany', 'editExpTitle', 'editExpDuration', 'editExpDesc', 'editEducation', 'editAchievements'];
+  editInputs.forEach(id => {
+    const elem = document.getElementById(id);
+    if (elem) {
+      elem.addEventListener('input', syncResumeFields);
+    }
+  });
+  
+  syncResumeFields();
+});
 
 
 </script>
