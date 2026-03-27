@@ -2102,8 +2102,41 @@ Published Technical Blog on React Performance</textarea>
       </table>
     </div></div>
   </div>
-  <div id="cjt-closed" style="display:none"><div class="empty-state" style="padding:50px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="display:block;margin:0 auto 12px;opacity:.3"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>No closed jobs</div></div>
-  <div id="cjt-draft" style="display:none"><div class="empty-state" style="padding:50px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="display:block;margin:0 auto 12px;opacity:.3"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>No drafts</div></div>
+  <div id="cjt-closed" style="display:none">
+    <div class="cadm-toolbar">
+      <div class="cadm-search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="cadm-search" placeholder="Search closed jobs..." onkeyup="searchJobs(this.value)"></div>
+      <select class="fi" style="padding:7px 10px;font-size:12px;width:auto"><option>New to Old</option><option>Old to New</option><option>By CTC</option></select>
+      <button class="btn btn-o btn-sm" onclick="filterJobs('Advanced Filter')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"/></svg>Filter</button>
+      <button class="btn btn-o btn-sm" onclick="exportJobsToExcel()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/></svg>Export</button>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto">
+      <table class="cadm-table">
+        <thead><tr><th>#</th><th>Job Title</th><th>Company</th><th>Location</th><th>CTC</th><th>Type</th><th>Openings</th><th>Applications</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><b>DevOps Engineer</b></td><td>Zoho</td><td>Chennai</td><td><span class="sal-chip">6–10 LPA</span></td><td><span class="cpill cpill-blue">Full Time</span></td><td>5</td><td>67</td><td><span class="cpill cpill-red">Closed</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Reopen" onclick="reopenJobListing(this,'DevOps Engineer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="View" onclick="showToast('👁️ Viewing closed job details')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deleteJobListing(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+          <tr><td>2</td><td><b>Backend Engineer</b></td><td>Freshworks</td><td>Bangalore</td><td><span class="sal-chip">7–11 LPA</span></td><td><span class="cpill cpill-blue">Full Time</span></td><td>8</td><td>145</td><td><span class="cpill cpill-red">Closed</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Reopen" onclick="reopenJobListing(this,'Backend Engineer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="View" onclick="showToast('👁️ Viewing closed job details')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deleteJobListing(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </div>
+  <div id="cjt-draft" style="display:none">
+    <div class="cadm-toolbar">
+      <div class="cadm-search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="cadm-search" placeholder="Search draft jobs..." onkeyup="searchJobs(this.value)"></div>
+      <select class="fi" style="padding:7px 10px;font-size:12px;width:auto"><option>New to Old</option><option>Old to New</option><option>By CTC</option></select>
+      <button class="btn btn-o btn-sm" onclick="filterJobs('Advanced Filter')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"/></svg>Filter</button>
+      <button class="btn btn-o btn-sm" onclick="exportJobsToExcel()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/></svg>Export</button>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto">
+      <table class="cadm-table">
+        <thead><tr><th>#</th><th>Job Title</th><th>Company</th><th>Location</th><th>CTC</th><th>Type</th><th>Openings</th><th>Applications</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><b>Senior Frontend Dev</b></td><td>Wipro</td><td>Pune</td><td><span class="sal-chip">8–12 LPA</span></td><td><span class="cpill cpill-blue">Full Time</span></td><td>4</td><td>0</td><td><span class="cpill cpill-amber">Draft</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editDraftJob(this,'Senior Frontend Dev')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Publish" onclick="publishDraftJob(this,'Senior Frontend Dev')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deleteJobListing(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+          <tr><td>2</td><td><b>QA Engineer</b></td><td>Cognizant</td><td>Remote</td><td><span class="sal-chip">4–7 LPA</span></td><td><span class="cpill cpill-blue">Full Time</span></td><td>6</td><td>0</td><td><span class="cpill cpill-amber">Draft</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editDraftJob(this,'QA Engineer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Publish" onclick="publishDraftJob(this,'QA Engineer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deleteJobListing(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+          <tr><td>3</td><td><b>Cloud Architect</b></td><td>Microsoft</td><td>Bangalore</td><td><span class="sal-chip">12–16 LPA</span></td><td><span class="cpill cpill-blue">Full Time</span></td><td>2</td><td>0</td><td><span class="cpill cpill-amber">Draft</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editDraftJob(this,'Cloud Architect')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Publish" onclick="publishDraftJob(this,'Cloud Architect')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deleteJobListing(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+        </tbody>
+      </table>
+    </div></div>
+  </div>
   <div id="cjt-all" style="display:none"><div class="empty-state" style="padding:50px"><div style="font-size:13px;color:var(--muted)">Switch tabs to see filtered jobs</div></div></div>
 </div>
 
@@ -2149,7 +2182,11 @@ Published Technical Blog on React Performance</textarea>
     </div>
   </div>
   <div id="mp-declined" style="display:none">
-    <div class="empty-state" style="padding:50px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="display:block;margin:0 auto 12px;opacity:.3"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><div style="font-size:13px;color:var(--muted)">No declined jobs</div></div>
+    <div class="job-cards-grid">
+      <div class="job-card-c"><div style="display:flex;align-items:flex-start;gap:10px"><div class="jc-logo">🏭</div><div style="flex:1"><div style="font-weight:700;font-size:13.5px">Manufacturing Engineer</div><div style="font-size:12px;color:var(--muted)">Maruti Suzuki · Gurugram</div></div><span class="cpill cpill-red">Declined</span></div><div class="jc-meta"><span>₹ 6–10 LPA</span><span>· Full Time ·</span><span>3 Openings</span><span>· Apply by Apr 15</span></div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-o btn-sm" onclick="viewJobDescription(this)" data-url="https://jobs.example.com/manu-maruti">View JD</button><button class="btn btn-green btn-sm" onclick="reconsiderDeclinedJob(this)">Reconsider</button><button class="btn btn-red btn-sm" onclick="removeDecliedJob(this)">Remove</button></div></div>
+      <div class="job-card-c"><div style="display:flex;align-items:flex-start;gap:10px"><div class="jc-logo">🏦</div><div style="flex:1"><div style="font-weight:700;font-size:13.5px">Banking Associate</div><div style="font-size:12px;color:var(--muted)">ICICI Bank · Delhi</div></div><span class="cpill cpill-red">Declined</span></div><div class="jc-meta"><span>₹ 4–8 LPA</span><span>· Full Time ·</span><span>12 Openings</span><span>· Apply by May 5</span></div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-o btn-sm" onclick="viewJobDescription(this)" data-url="https://jobs.example.com/banking-icici">View JD</button><button class="btn btn-green btn-sm" onclick="reconsiderDeclinedJob(this)">Reconsider</button><button class="btn btn-red btn-sm" onclick="removeDecliedJob(this)">Remove</button></div></div>
+      <div class="job-card-c"><div style="display:flex;align-items:flex-start;gap:10px"><div class="jc-logo">📱</div><div style="flex:1"><div style="font-weight:700;font-size:13.5px">Telecom Engineer</div><div style="font-size:12px;color:var(--muted)">Airtel · Mumbai</div></div><span class="cpill cpill-red">Declined</span></div><div class="jc-meta"><span>₹ 7–12 LPA</span><span>· Full Time ·</span><span>5 Openings</span><span>· Apply by Apr 20</span></div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-o btn-sm" onclick="viewJobDescription(this)" data-url="https://jobs.example.com/telecom-airtel">View JD</button><button class="btn btn-green btn-sm" onclick="reconsiderDeclinedJob(this)">Reconsider</button><button class="btn btn-red btn-sm" onclick="removeDecliedJob(this)">Remove</button></div></div>
+    </div>
   </div>
 </div>
 
@@ -2157,19 +2194,19 @@ Published Technical Blog on React Performance</textarea>
 <div class="screen" id="screen-cadm-alerts">
   <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div><div class="pt">Job Alert</div><div class="ps">Manage job alert subscribers</div></div>
-    <button class="btn btn-p" onclick="showToast('Add Subscriber form coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Add Subscriber</button>
+    <button class="btn btn-p" onclick="showAddSubscriberForm()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Add Subscriber</button>
   </div>
   <div class="cadm-toolbar">
-    <div class="cadm-search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="cadm-search" placeholder="Search Job Alert"></div>
-    <select class="fi" style="padding:7px 10px;font-size:12px;width:auto"><option>New to Old</option></select>
-    <button class="btn btn-o btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>Bulk Delete</button>
+    <div class="cadm-search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="cadm-search" placeholder="Search Job Alert" onkeyup="searchJobAlerts(this.value)"></div>
+    <select class="fi" style="padding:7px 10px;font-size:12px;width:auto" onchange="sortJobAlerts(this.value)"><option>New to Old</option><option>Old to New</option><option>A to Z</option></select>
+    <button class="btn btn-o btn-sm" onclick="bulkDeleteJobAlerts()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>Bulk Delete</button>
   </div>
   <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table class="cadm-table">
     <thead><tr><th>#</th><th>Email</th><th>Frequency</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f280939a879edc819a93809f93b2959f939b9edc919d9f">[email&#160;protected]</a></td><td>Daily</td><td>Software</td><td><span class="cpill cpill-green">Subscribed</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/></svg></span><span class="aib" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
-      <tr><td>2</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9fefedf6e6feb1f4dfe6fef7f0f0b1fcf0f2">[email&#160;protected]</a></td><td>NOT SET</td><td>Data Science</td><td><span class="cpill cpill-red">Unsubscribed</span></td><td><div style="display:flex;gap:4px"><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
-      <tr><td>3</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e786959289c9838291a78892938b88888cc984888a">[email&#160;protected]</a></td><td>Daily</td><td>Design</td><td><span class="cpill cpill-green">Subscribed</span></td><td><div style="display:flex;gap:4px"><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>1</td><td><a href="mailto:john.doe@email.com">john.doe@email.com</a></td><td>Daily</td><td>Software</td><td><span class="cpill cpill-green">Subscribed</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editJobAlert(this,'john.doe@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Download" onclick="downloadJobAlert(this,'john.doe@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/></svg></span><span class="aib" title="Delete" onclick="deleteJobAlert(this,'john.doe@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>2</td><td><a href="mailto:jane.smith@email.com">jane.smith@email.com</a></td><td>NOT SET</td><td>Data Science</td><td><span class="cpill cpill-red">Unsubscribed</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editJobAlert(this,'jane.smith@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Download" onclick="downloadJobAlert(this,'jane.smith@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/></svg></span><span class="aib" title="Delete" onclick="deleteJobAlert(this,'jane.smith@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>3</td><td><a href="mailto:alex.kumar@email.com">alex.kumar@email.com</a></td><td>Daily</td><td>Design</td><td><span class="cpill cpill-green">Subscribed</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editJobAlert(this,'alex.kumar@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Download" onclick="downloadJobAlert(this,'alex.kumar@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/></svg></span><span class="aib" title="Delete" onclick="deleteJobAlert(this,'alex.kumar@email.com')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
     </tbody>
   </table></div></div>
 </div>
@@ -2178,14 +2215,14 @@ Published Technical Blog on React Performance</textarea>
 <div class="screen" id="screen-cadm-cycle">
   <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div><div class="pt">Placement Cycle</div><div class="ps">Create and manage placement cycles</div></div>
-    <button class="btn btn-p" onclick="showToast('Create Cycle form coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Placement Cycle</button>
+    <button class="btn btn-p" onclick="showCreatePlacementCycleForm()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Placement Cycle</button>
   </div>
   <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table class="cadm-table">
     <thead><tr><th>#</th><th>Cycle Name</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Actions</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><b>2024–25 Placement Drive</b></td><td>Aug 1, 2024</td><td>Mar 31, 2025</td><td><span class="cpill cpill-green">Active</span></td><td><div style="display:flex;gap:4px"><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
-      <tr><td>2</td><td><b>2023–24 Placement Drive</b></td><td>Aug 1, 2023</td><td>Mar 31, 2024</td><td><span class="cpill cpill-gray">Completed</span></td><td><div style="display:flex;gap:4px"><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
-      <tr><td>3</td><td><b>2025–26 Placement Drive</b></td><td>Aug 1, 2025</td><td>Mar 31, 2026</td><td><span class="cpill cpill-blue">Upcoming</span></td><td><div style="display:flex;gap:4px"><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>1</td><td><b>2024–25 Placement Drive</b></td><td>Aug 1, 2024</td><td>Mar 31, 2025</td><td><span class="cpill cpill-green">Active</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editPlacementCycle(this,'2024-25 Placement Drive')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="View" onclick="viewPlacementCycle(this,'2024-25 Placement Drive')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deletePlacementCycle(this,'2024-25 Placement Drive')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>2</td><td><b>2023–24 Placement Drive</b></td><td>Aug 1, 2023</td><td>Mar 31, 2024</td><td><span class="cpill cpill-gray">Completed</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="View" onclick="viewPlacementCycle(this,'2023-24 Placement Drive')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deletePlacementCycle(this,'2023-24 Placement Drive')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>3</td><td><b>2025–26 Placement Drive</b></td><td>Aug 1, 2025</td><td>Mar 31, 2026</td><td><span class="cpill cpill-blue">Upcoming</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="Edit" onclick="editPlacementCycle(this,'2025-26 Placement Drive')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Delete" onclick="deletePlacementCycle(this,'2025-26 Placement Drive')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
     </tbody>
   </table></div></div>
 </div>
@@ -2194,7 +2231,7 @@ Published Technical Blog on React Performance</textarea>
 <div class="screen" id="screen-cadm-members">
   <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div><div class="pt">Members</div><div class="ps">Manage team members, roles & permissions</div></div>
-    <button class="btn btn-p" onclick="showToast('Add Members form coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Add Members</button>
+    <button class="btn btn-p" onclick="showAddMembersForm()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>Add Members</button>
   </div>
   <!-- Invite section -->
   <div class="card" style="margin-bottom:16px">
@@ -2202,16 +2239,16 @@ Published Technical Blog on React Performance</textarea>
     <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Share this link with your team members to add them to your organization</div>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div class="invite-link-box">https://skillowait.app/invite/org/cadm-abc123token</div><button class="btn btn-o btn-sm" onclick="showToast('Link copied!')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Add via Email</div>
-    <div style="display:flex;align-items:center;gap:8px"><input class="fi" placeholder="example@abc.com" style="flex:1"><select class="fi" style="width:150px;padding:9px 10px"><option>Choose Role</option><option>Member</option><option>Admin</option><option>Super Admin</option></select><button class="btn btn-p btn-sm" onclick="showToast('Invite sent!')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>Invite</button></div>
+    <div style="display:flex;align-items:center;gap:8px"><input class="fi" id="memberEmail" placeholder="example@abc.com" style="flex:1"><select class="fi" id="memberRole" style="width:150px;padding:9px 10px"><option>Choose Role</option><option>Member</option><option>Admin</option><option>Super Admin</option></select><button class="btn btn-p btn-sm" onclick="inviteMemberByEmail()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="13" height="13"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>Invite</button></div>
   </div>
-  <div class="cadm-tabs"><div class="cadm-tab active">All Members (12)</div><div class="cadm-tab">Centres (3)</div><div class="cadm-tab">Roles (4)</div><div class="cadm-tab">Groups (2)</div></div>
+  <div class="cadm-tabs"><div class="cadm-tab active" onclick="filterMembers('all')">All Members (12)</div><div class="cadm-tab" onclick="filterMembers('centres')">Centres (3)</div><div class="cadm-tab" onclick="filterMembers('roles')">Roles (4)</div><div class="cadm-tab" onclick="filterMembers('groups')">Groups (2)</div></div>
   <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table class="cadm-table">
     <thead><tr><th>#</th><th>Name</th><th>Status</th><th>Email</th><th>Role</th><th>Jobs</th><th>Assign Job</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><b>Dr. Ramesh Kumar</b></td><td><span class="cpill cpill-green">Active</span></td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1466757971677c54777b78787173713a717061">[email&#160;protected]</a></td><td><span class="cpill cpill-purple">Super Admin</span></td><td>48</td><td><button class="btn btn-o btn-sm" onclick="showToast('Assign Job opened')">Assign</button></td></tr>
-      <tr><td>2</td><td><b>Preethi S</b></td><td><span class="cpill cpill-green">Active</span></td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2252504747564a4b62414d4e4e4745470c474657">[email&#160;protected]</a></td><td><span class="cpill cpill-blue">Admin</span></td><td>32</td><td><button class="btn btn-o btn-sm" onclick="showToast('Assign Job opened')">Assign</button></td></tr>
-      <tr><td>3</td><td><b>Suresh Babu</b></td><td><span class="cpill cpill-red">Inactive</span></td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1162646374627951727e7d7d7476743f747564">[email&#160;protected]</a></td><td><span class="cpill cpill-gray">Member</span></td><td>12</td><td><button class="btn btn-o btn-sm" onclick="showToast('Assign Job opened')">Assign</button></td></tr>
-      <tr><td>4</td><td><b>Lakshmi Devi</b></td><td><span class="cpill cpill-green">Active</span></td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c202d273f2421250c2f232020292b2962292839">[email&#160;protected]</a></td><td><span class="cpill cpill-gray">Member</span></td><td>18</td><td><button class="btn btn-o btn-sm" onclick="showToast('Assign Job opened')">Assign</button></td></tr>
+      <tr><td>1</td><td><b>Dr. Ramesh Kumar</b></td><td><span class="cpill cpill-green">Active</span></td><td><a href="mailto:ramesh.kumar@college.edu">ramesh.kumar@college.edu</a></td><td><span class="cpill cpill-purple">Super Admin</span></td><td>48</td><td><button class="btn btn-o btn-sm" onclick="assignJobsToMember('Dr. Ramesh Kumar', 1)">Assign</button></td></tr>
+      <tr><td>2</td><td><b>Preethi S</b></td><td><span class="cpill cpill-green">Active</span></td><td><a href="mailto:preethi.s@college.edu">preethi.s@college.edu</a></td><td><span class="cpill cpill-blue">Admin</span></td><td>32</td><td><button class="btn btn-o btn-sm" onclick="assignJobsToMember('Preethi S', 2)">Assign</button></td></tr>
+      <tr><td>3</td><td><b>Suresh Babu</b></td><td><span class="cpill cpill-red">Inactive</span></td><td><a href="mailto:suresh.babu@college.edu">suresh.babu@college.edu</a></td><td><span class="cpill cpill-gray">Member</span></td><td>12</td><td><button class="btn btn-o btn-sm" onclick="assignJobsToMember('Suresh Babu', 3)">Assign</button></td></tr>
+      <tr><td>4</td><td><b>Lakshmi Devi</b></td><td><span class="cpill cpill-green">Active</span></td><td><a href="mailto:lakshmi.devi@college.edu">lakshmi.devi@college.edu</a></td><td><span class="cpill cpill-gray">Member</span></td><td>18</td><td><button class="btn btn-o btn-sm" onclick="assignJobsToMember('Lakshmi Devi', 4)">Assign</button></td></tr>
     </tbody>
   </table></div></div>
 </div>
@@ -2238,15 +2275,15 @@ Published Technical Blog on React Performance</textarea>
 <div class="screen" id="screen-cadm-mockiv">
   <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div><div class="pt">Mock Interview</div><div class="ps">Schedule and track mock interviews for students</div></div>
-    <button class="btn btn-p" onclick="showToast('Schedule Mock Interview form coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Schedule Mock Interview</button>
+    <button class="btn btn-p" onclick="scheduleMockInterview()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Schedule Mock Interview</button>
   </div>
-  <div class="cadm-tabs"><div class="cadm-tab active">Upcoming (4)</div><div class="cadm-tab">Completed (18)</div><div class="cadm-tab">All (22)</div></div>
+  <div class="cadm-tabs"><div class="cadm-tab active" onclick="filterMockInterviews('upcoming')">Upcoming (4)</div><div class="cadm-tab" onclick="filterMockInterviews('completed')">Completed (18)</div><div class="cadm-tab" onclick="filterMockInterviews('all')">All (22)</div></div>
   <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table class="cadm-table">
     <thead><tr><th>#</th><th>Candidate Name</th><th>Interview Date</th><th>Interviewer</th><th>Role</th><th>Status</th><th>Feedback</th><th>Actions</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><b>Aditya Raj</b></td><td>Mar 28, 2025</td><td>Dr. R. Kumar</td><td>Software Engineer</td><td><span class="cpill cpill-blue">Upcoming</span></td><td>—</td><td><div style="display:flex;gap:4px"><span class="aib" title="Join"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><span class="aib" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
-      <tr><td>2</td><td><b>Sneha Iyer</b></td><td>Mar 29, 2025</td><td>Preethi S</td><td>Data Analyst</td><td><span class="cpill cpill-blue">Upcoming</span></td><td>—</td><td><div style="display:flex;gap:4px"><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
-      <tr><td>3</td><td><b>Karthik M</b></td><td>Mar 20, 2025</td><td>Dr. R. Kumar</td><td>DevOps Engineer</td><td><span class="cpill cpill-green">Completed</span></td><td><span style="font-size:12px;font-weight:700;color:var(--amber)">★ 4.2/5</span></td><td><div style="display:flex;gap:4px"><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>1</td><td><b>Aditya Raj</b></td><td>Mar 28, 2025</td><td>Dr. R. Kumar</td><td>Software Engineer</td><td><span class="cpill cpill-blue">Upcoming</span></td><td>—</td><td><div style="display:flex;gap:4px"><span class="aib" title="Join" onclick="viewMockInterview(1)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><span class="aib" title="Edit" onclick="editMockInterview(1)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Delete" onclick="deleteMockInterview(1)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>2</td><td><b>Sneha Iyer</b></td><td>Mar 29, 2025</td><td>Preethi S</td><td>Data Analyst</td><td><span class="cpill cpill-blue">Upcoming</span></td><td>—</td><td><div style="display:flex;gap:4px"><span class="aib" title="Join" onclick="viewMockInterview(2)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><span class="aib" title="Edit" onclick="editMockInterview(2)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Delete" onclick="deleteMockInterview(2)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
+      <tr><td>3</td><td><b>Karthik M</b></td><td>Mar 20, 2025</td><td>Dr. R. Kumar</td><td>DevOps Engineer</td><td><span class="cpill cpill-green">Completed</span></td><td><span style="font-size:12px;font-weight:700;color:var(--amber)">★ 4.2/5</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="View" onclick="viewMockInterview(3)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deleteMockInterview(3)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
     </tbody>
   </table></div></div>
 </div>
@@ -2255,14 +2292,46 @@ Published Technical Blog on React Performance</textarea>
 <div class="screen" id="screen-cadm-events">
   <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
     <div><div class="pt">Events</div><div class="ps">Create and manage campus placement & career events</div></div>
-    <div style="display:flex;gap:8px"><button class="btn btn-o" onclick="showToast('Job Board opened')">View Job Board</button><button class="btn btn-p" onclick="showToast('Create Event form coming soon')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Event</button></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-o" onclick="viewJobBoard()">View Job Board</button><button class="btn btn-p" onclick="createNewEvent()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Event</button></div>
   </div>
-  <div class="cadm-tabs"><div class="cadm-tab active">Published (3)</div><div class="cadm-tab">Scoreboard (1)</div></div>
-  <div class="cadm-toolbar"><div class="cadm-search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="cadm-search" placeholder="Search for events"></div></div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
+  <div class="cadm-tabs"><div class="cadm-tab active" onclick="switchEventsTabs(this, 'events-published')">Published (3)</div><div class="cadm-tab" onclick="switchEventsTabs(this, 'events-scoreboard')">Scoreboard (1)</div></div>
+  <div class="cadm-toolbar"><div class="cadm-search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="color:var(--muted)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="cadm-search" placeholder="Search for events" onkeyup="searchEvents(this.value)"></div></div>
+  <div id="events-published" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">
     <div class="ev-card"><div class="ev-thumb" style="background:linear-gradient(135deg,#0D2461,var(--accent),var(--teal))">🎤</div><div class="ev-body"><div style="font-weight:700;font-size:13.5px">Campus Placement Drive 2025</div><div style="font-size:12px;color:var(--muted);margin-top:4px">Apr 10, 2025 · 10:00 AM · Main Auditorium</div><div style="display:flex;gap:6px;margin-top:8px"><span class="cpill cpill-green">In-Person</span><span class="cpill cpill-blue">880 Registered</span></div></div></div>
     <div class="ev-card"><div class="ev-thumb" style="background:linear-gradient(135deg,var(--red),var(--amber))">💻</div><div class="ev-body"><div style="font-weight:700;font-size:13.5px">Hackathon 2025</div><div style="font-size:12px;color:var(--muted);margin-top:4px">Apr 18–19, 2025 · Online</div><div style="display:flex;gap:6px;margin-top:8px"><span class="cpill cpill-purple">Virtual</span><span class="cpill cpill-blue">240 Registered</span></div></div></div>
     <div class="ev-card"><div class="ev-thumb" style="background:linear-gradient(135deg,var(--green),var(--teal))">🏆</div><div class="ev-body"><div style="font-weight:700;font-size:13.5px">Alumni Networking Night</div><div style="font-size:12px;color:var(--muted);margin-top:4px">May 2, 2025 · Conference Hall B</div><div style="display:flex;gap:6px;margin-top:8px"><span class="cpill cpill-green">In-Person</span><span class="cpill cpill-amber">120 Registered</span></div></div></div>
+  </div>
+  <div id="events-scoreboard" style="display:none">
+    <div class="card">
+      <div style="margin-bottom:16px">
+        <div style="font-weight:700;margin-bottom:8px">Placement Drive 2025 - Scoreboard</div>
+        <div style="font-size:13px;color:var(--muted)">Real-time placement metrics and rankings</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">
+        <div style="background:var(--surface2);padding:16px;border-radius:var(--r2)">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Total Placements</div>
+          <div style="font-size:24px;font-weight:700;color:var(--green)">186</div>
+        </div>
+        <div style="background:var(--surface2);padding:16px;border-radius:var(--r2)">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Average Package</div>
+          <div style="font-size:24px;font-weight:700;color:var(--accent)">₹8.5 LPA</div>
+        </div>
+        <div style="background:var(--surface2);padding:16px;border-radius:var(--r2)">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:4px">Top Employer</div>
+          <div style="font-size:16px;font-weight:700">Infosys (28 hires)</div>
+        </div>
+      </div>
+      <div style="font-weight:700;margin-bottom:8px">Department Rankings</div>
+      <table class="cadm-table">
+        <thead><tr><th>Rank</th><th>Department</th><th>Placements</th><th>Avg Package</th></tr></thead>
+        <tbody>
+          <tr><td>#1</td><td>Computer Science</td><td>68</td><td>₹10.2 LPA</td></tr>
+          <tr><td>#2</td><td>Electronics</td><td>42</td><td>₹7.8 LPA</td></tr>
+          <tr><td>#3</td><td>Mechanical</td><td>38</td><td>₹6.5 LPA</td></tr>
+          <tr><td>#4</td><td>Civil</td><td>28</td><td>₹5.9 LPA</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -6692,6 +6761,55 @@ function filterJobs(filterType) {
   showToast(`Filters applied: ${filterType}`);
 }
 
+// REOPEN CLOSED JOB
+function reopenJobListing(btn, jobTitle) {
+  const confirmed = confirm(`Reopen "${jobTitle}"?`);
+  if (confirmed) {
+    showToast(`✓ "${jobTitle}" reopened successfully`);
+    btn.closest('tr').remove();
+  }
+}
+
+// EDIT DRAFT JOB
+function editDraftJob(btn, jobTitle) {
+  const editForm = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:600px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Edit Job: ${jobTitle}</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Job Title</label>
+        <input class="fi" value="${jobTitle}">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Company</label>
+        <input class="fi" value="Company Name">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Location</label>
+        <input class="fi" value="Location">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">CTC Range</label>
+        <input class="fi" value="5-10 LPA">
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('✓ Job updated successfully!');this.closest('div').parentElement.remove()">Update</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', editForm);
+}
+
+// PUBLISH DRAFT JOB
+function publishDraftJob(btn, jobTitle) {
+  const confirmed = confirm(`Publish "${jobTitle}" as active?`);
+  if (confirmed) {
+    showToast(`✓ "${jobTitle}" published and is now active`);
+    btn.closest('tr').remove();
+  }
+}
+
 // EXPORT JOBS HANDLER
 function exportJobsToExcel() {
   const tbody = document.getElementById('cadm-jobs-tbody');
@@ -6750,6 +6868,78 @@ function viewJobDescription(btn) {
   }
 }
 
+// ACCEPT JOB FROM MARKETPLACE
+function acceptJobFromMarketplace(btn) {
+  const card = btn.closest('.job-card-c');
+  if (card) {
+    const title = card.querySelector('div[style*="font-weight:700"]').textContent;
+    showToast(`✓ "${title}" accepted successfully!`);
+    card.style.opacity = '0.6';
+    card.style.pointerEvents = 'none';
+  }
+}
+
+// DECLINE JOB FROM MARKETPLACE
+function declineJobFromMarketplace(btn) {
+  const card = btn.closest('.job-card-c');
+  if (card) {
+    const title = card.querySelector('div[style*="font-weight:700"]').textContent;
+    const confirmed = confirm(`Decline "${title}"?`);
+    if (confirmed) {
+      showToast(`✕ "${title}" declined`);
+      card.style.display = 'none';
+    }
+  }
+}
+
+// RECONSIDER DECLINED JOB
+function reconsiderDeclinedJob(btn) {
+  const card = btn.closest('.job-card-c');
+  if (card) {
+    const title = card.querySelector('div[style*="font-weight:700"]').textContent;
+    showToast(`✓ "${title}" moved back to active jobs!`);
+    card.remove();
+  }
+}
+
+// REMOVE DECLINED JOB
+function removeDecliedJob(btn) {
+  const card = btn.closest('.job-card-c');
+  if (card) {
+    const title = card.querySelector('div[style*="font-weight:700"]').textContent;
+    const confirmed = confirm(`Remove "${title}" permanently?`);
+    if (confirmed) {
+      showToast(`✓ Declined job removed`);
+      card.remove();
+    }
+  }
+}
+
+// SORT MARKETPLACE JOBS
+function sortMarketplaceJobs(sortBy) {
+  showToast(`Sorted by: ${sortBy}`);
+  // Implementation would sort the job cards
+}
+
+// SEARCH MARKETPLACE JOBS
+function searchMarketplaceJobs(query) {
+  if (!query) {
+    document.querySelectorAll('#mp-jobs .job-card-c').forEach(card => {
+      card.style.display = '';
+    });
+    return;
+  }
+  document.querySelectorAll('#mp-jobs .job-card-c').forEach(card => {
+    const title = card.querySelector('div[style*="font-weight:700"]').textContent.toLowerCase();
+    const company = card.querySelector('div[style*="color:var(--muted)"]').textContent.toLowerCase();
+    if (title.includes(query.toLowerCase()) || company.includes(query.toLowerCase())) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
 // ACCEPT JOB
 function acceptJobFromMarketplace(btn) {
   const card = btn.closest('.job-card-c');
@@ -6798,6 +6988,250 @@ function searchMarketplaceJobs(searchTerm) {
 // SORT MARKETPLACE JOBS
 function sortMarketplaceJobs(sortBy) {
   showToast(`Jobs sorted by: ${sortBy}`);
+}
+
+// ════════ JOB ALERT FUNCTIONS ════════
+
+// SEARCH JOB ALERTS
+function searchJobAlerts(query) {
+  const screen = document.getElementById('screen-cadm-alerts');
+  if (!screen) return;
+  
+  const rows = screen.querySelectorAll('table tbody tr');
+  const term = query.toLowerCase();
+  
+  rows.forEach(row => {
+    const email = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+    const category = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+    if (email.includes(term) || category.includes(term)) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}
+
+// SORT JOB ALERTS
+function sortJobAlerts(sortBy) {
+  if (sortBy === 'New to Old') {
+    showToast('✓ Sorted by Latest First');
+  } else if (sortBy === 'Old to New') {
+    showToast('✓ Sorted by Oldest First');
+  } else if (sortBy === 'A to Z') {
+    showToast('✓ Sorted Alphabetically');
+  }
+}
+
+// EDIT JOB ALERT
+function editJobAlert(btn, email) {
+  const editForm = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:500px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Edit Job Alert: ${email}</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Email Address</label>
+        <input class="fi" value="${email}" readonly style="background:var(--surface2)">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Frequency</label>
+        <select class="fi"><option>Daily</option><option>Weekly</option><option>Monthly</option></select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Category</label>
+        <select class="fi"><option>Software</option><option>Data Science</option><option>Design</option><option>Hardware</option></select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Status</label>
+        <select class="fi"><option>Subscribed</option><option>Unsubscribed</option></select>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('✓ Job Alert updated successfully!');this.closest('div').parentElement.remove()">Update</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', editForm);
+}
+
+// DOWNLOAD JOB ALERT
+function downloadJobAlert(btn, email) {
+  showToast(`⬇️ Downloading alert data for ${email}...`);
+  const csvContent = `Email,Frequency,Category,Status\n${email},Daily,Software,Subscribed`;
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `job-alert-${email}.csv`;
+  a.click();
+  showToast('✓ Alert data downloaded');
+}
+
+// DELETE JOB ALERT
+function deleteJobAlert(btn, email) {
+  const confirmed = confirm(`Delete alert for ${email}?`);
+  if (confirmed) {
+    showToast(`✓ Job alert for ${email} deleted`);
+    btn.closest('tr').remove();
+  }
+}
+
+// BULK DELETE JOB ALERTS
+function bulkDeleteJobAlerts() {
+  const confirmed = confirm('Delete all selected alerts? This cannot be undone.');
+  if (confirmed) {
+    showToast('✓ All selected alerts deleted successfully');
+  }
+}
+
+// ADD SUBSCRIBER FORM
+function showAddSubscriberForm() {
+  const form = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:500px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Add New Job Alert Subscriber</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Email Address</label>
+        <input class="fi" type="email" placeholder="subscriber@example.com" id="subEmail">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Frequency</label>
+        <select class="fi" id="subFreq"><option>Daily</option><option>Weekly</option><option>Monthly</option></select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Category</label>
+        <select class="fi" id="subCat"><option>Software</option><option>Data Science</option><option>Design</option><option>Hardware</option><option>All</option></select>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="addSubscriberConfirm()">Add Subscriber</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', form);
+}
+
+// CONFIRM ADD SUBSCRIBER
+function addSubscriberConfirm() {
+  const email = document.getElementById('subEmail')?.value || '';
+  const freq = document.getElementById('subFreq')?.value || 'Daily';
+  const cat = document.getElementById('subCat')?.value || 'All';
+  
+  if (!email || !email.includes('@')) {
+    showToast('Please enter a valid email address');
+    return;
+  }
+  
+  showToast(`✓ Subscriber ${email} added successfully! Frequency: ${freq}, Category: ${cat}`);
+  document.querySelector('[style*="position:fixed"][style*="top:50%"]')?.parentElement?.remove();
+}
+
+// ════════ PLACEMENT CYCLE FUNCTIONS ════════
+
+// SHOW CREATE PLACEMENT CYCLE FORM
+function showCreatePlacementCycleForm() {
+  const form = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:600px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Create New Placement Cycle</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Cycle Name</label>
+        <input class="fi" placeholder="e.g., 2025-26 Placement Drive">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label class="lbl">Start Date</label>
+          <input class="fi" type="date">
+        </div>
+        <div>
+          <label class="lbl">End Date</label>
+          <input class="fi" type="date">
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Description</label>
+        <textarea class="fi" placeholder="Add details about this placement cycle" style="min-height:100px;resize:vertical"></textarea>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('✓ Placement Cycle created successfully!');this.closest('div').parentElement.remove()">Create</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', form);
+}
+
+// EDIT PLACEMENT CYCLE
+function editPlacementCycle(btn, cycleName) {
+  const form = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:600px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Edit Placement Cycle: ${cycleName}</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Cycle Name</label>
+        <input class="fi" value="${cycleName}">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label class="lbl">Start Date</label>
+          <input class="fi" type="date" value="2024-08-01">
+        </div>
+        <div>
+          <label class="lbl">End Date</label>
+          <input class="fi" type="date" value="2025-03-31">
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Status</label>
+        <select class="fi"><option>Active</option><option>Completed</option><option>Upcoming</option><option>Paused</option></select>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('✓ Placement Cycle updated successfully!');this.closest('div').parentElement.remove()">Update</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', form);
+}
+
+// VIEW PLACEMENT CYCLE
+function viewPlacementCycle(btn, cycleName) {
+  const form = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:700px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">${cycleName}</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div style="background:var(--surface2);padding:12px;border-radius:var(--r2)">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Status</div>
+          <div style="font-weight:700;color:var(--green)">Active</div>
+        </div>
+        <div style="background:var(--surface2);padding:12px;border-radius:var(--r2)">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Duration</div>
+          <div style="font-weight:700">Aug 1, 2024 – Mar 31, 2025</div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);padding:12px;border-radius:var(--r2);margin-bottom:16px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Quick Stats</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+          <div><div style="font-size:12px;color:var(--muted)">Jobs Posted</div><div style="font-weight:700;font-size:16px">48</div></div>
+          <div><div style="font-size:12px;color:var(--muted)">Students Placed</div><div style="font-weight:700;font-size:16px">186</div></div>
+          <div><div style="font-size:12px;color:var(--muted)">Applications</div><div style="font-weight:700;font-size:16px">2,341</div></div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="this.closest('div').parentElement.remove()">Close</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', form);
+}
+
+// DELETE PLACEMENT CYCLE
+function deletePlacementCycle(btn, cycleName) {
+  const confirmed = confirm(`Delete Placement Cycle "${cycleName}"? This action cannot be undone.`);
+  if (confirmed) {
+    showToast(`✓ Placement Cycle "${cycleName}" deleted`);
+    btn.closest('tr').remove();
+  }
 }
 
 // ════════ FACULTY MODULE ENHANCEMENTS ════════
@@ -7810,18 +8244,313 @@ function exportPdfResume() {
   }
 }
 
-// Initialize Resume Builder
-document.addEventListener('DOMContentLoaded', function() {
-  const editInputs = ['editName', 'editTitle', 'editEmail', 'editPhone', 'editLocation', 'editSummary', 'editSkills', 'editExpCompany', 'editExpTitle', 'editExpDuration', 'editExpDesc', 'editEducation', 'editAchievements'];
-  editInputs.forEach(id => {
-    const elem = document.getElementById(id);
-    if (elem) {
-      elem.addEventListener('input', syncResumeFields);
+// ════════ COLLEGE ADMIN - EVENTS FUNCTIONS ════════
+function viewJobBoard() {
+  const form = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:800px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <h3 style="font-size:16px;font-weight:700">Job Board</h3>
+        <span style="cursor:pointer;font-size:20px" onclick="this.closest('div').parentElement.remove()">✕</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="background:var(--surface2);padding:12px;border-radius:var(--r2)">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Total Jobs</div>
+          <div style="font-size:20px;font-weight:700">48</div>
+        </div>
+        <div style="background:var(--surface2);padding:12px;border-radius:var(--r2)">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Active Postings</div>
+          <div style="font-size:20px;font-weight:700">38</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-weight:700;margin-bottom:8px">Active Job Listings</div>
+      <table class="cadm-table">
+        <thead><tr><th>Job Title</th><th>Company</th><th>Openings</th><th>Applications</th></tr></thead>
+        <tbody>
+          <tr><td>Software Engineer</td><td>Infosys</td><td>20</td><td>142</td></tr>
+          <tr><td>Data Analyst</td><td>TCS</td><td>12</td><td>98</td></tr>
+          <tr><td>ML Intern</td><td>Amazon</td><td>3</td><td>210</td></tr>
+          <tr><td>DevOps Engineer</td><td>Zoho</td><td>5</td><td>67</td></tr>
+        </tbody>
+      </table>
+      <button class="btn btn-p" style="width:100%;margin-top:16px" onclick="this.closest('div').parentElement.remove()">Close</button>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', form);
+  showToast('✓ Job Board loaded');
+}
+
+// SWITCH EVENTS TABS
+function switchEventsTabs(el, tabId) {
+  const screen = document.getElementById('screen-cadm-events');
+  if (screen) {
+    const tabs = screen.querySelectorAll('.cadm-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    
+    // Hide all content
+    const contents = screen.querySelectorAll('[id^="events-"]');
+    contents.forEach(c => c.style.display = 'none');
+    
+    // Show selected
+    const target = document.getElementById(tabId);
+    if (target) target.style.display = 'block';
+  }
+}
+
+function createNewEvent() {
+  showToast('Opening Create Event form...');
+  // Open event creation modal/form
+  const eventForm = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:500px;width:90%;box-shadow:var(--sh2)">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Create New Event</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Event Name</label>
+        <input class="fi" placeholder="Enter event name">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Event Date</label>
+        <input class="fi" type="date">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Location</label>
+        <input class="fi" placeholder="Enter location">
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('Event created successfully!');this.closest('div').parentElement.remove()">Create</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', eventForm);
+}
+
+function searchEvents(query) {
+  if (query.trim() === '') {
+    showToast('Showing all events');
+  } else {
+    showToast(`Searching for: "${query}"`);
+  }
+  // Filter event cards based on query
+  const eventCards = document.querySelectorAll('.ev-card');
+  eventCards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+  });
+}
+
+// ════════ COLLEGE ADMIN - MOCK INTERVIEW FUNCTIONS ════════
+function scheduleMockInterview() {
+  showToast('Opening Schedule Mock Interview form...');
+  const scheduleForm = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:600px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Schedule Mock Interview</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Candidate Name</label>
+        <input class="fi" placeholder="Enter candidate name">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Interview Date</label>
+        <input class="fi" type="date">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Time</label>
+        <input class="fi" type="time">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Interviewer</label>
+        <select class="fi"><option>Select Interviewer</option><option>Dr. R. Kumar</option><option>Preethi S</option></select>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('Mock Interview scheduled!');this.closest('div').parentElement.remove()">Schedule</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', scheduleForm);
+}
+
+function filterMockInterviews(filter) {
+  showToast(`Showing ${filter} interviews`);
+  // Update active tab
+  document.querySelectorAll('.cadm-tab').forEach((tab, idx) => {
+    tab.classList.remove('active');
+    if ((filter === 'upcoming' && idx === 0) || (filter === 'completed' && idx === 1) || (filter === 'all' && idx === 2)) {
+      tab.classList.add('active');
     }
   });
+  // Filter table rows based on filter
+  const rows = document.querySelectorAll('#screen-cadm-mockiv tbody tr');
+  rows.forEach(row => {
+    const status = row.querySelector('.cpill').textContent.trim();
+    if (filter === 'upcoming') {
+      row.style.display = status === 'Upcoming' ? '' : 'none';
+    } else if (filter === 'completed') {
+      row.style.display = status === 'Completed' ? '' : 'none';
+    } else {
+      row.style.display = '';
+    }
+  });
+}
+
+function viewMockInterview(id) {
+  showToast(`Viewing Mock Interview #${id}`);
+  // Show interview details
+  const interviewDetails = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:500px;width:90%;box-shadow:var(--sh2)">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Interview Details - #${id}</h3>
+      <div style="background:var(--surface2);padding:16px;border-radius:var(--r2);margin-bottom:16px">
+        <p><strong>Candidate:</strong> Interview Candidate #${id}</p>
+        <p style="margin-top:8px"><strong>Date:</strong> Mar ${28 + id}, 2025</p>
+        <p style="margin-top:8px"><strong>Status:</strong> <span class="cpill cpill-blue">Upcoming</span></p>
+        <p style="margin-top:8px"><strong>Interviewer:</strong> Interview Panel</p>
+      </div>
+      <button class="btn btn-p" style="width:100%" onclick="this.closest('div').parentElement.remove()">Close</button>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', interviewDetails);
+}
+
+function editMockInterview(id) {
+  showToast(`Editing Mock Interview #${id}`);
+  const editForm = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:500px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Edit Mock Interview #${id}</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Candidate Name</label>
+        <input class="fi" placeholder="Candidate name" value="Interview Candidate #${id}">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Interview Date</label>
+        <input class="fi" type="date">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Time</label>
+        <input class="fi" type="time">
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('Interview updated!');this.closest('div').parentElement.remove()">Update</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', editForm);
+}
+
+function deleteMockInterview(id) {
+  const confirmed = confirm(`Are you sure you want to delete Mock Interview #${id}?`);
+  if (confirmed) {
+    showToast(`Mock Interview #${id} deleted successfully`);
+    // Remove the row from table
+    event.target.closest('tr').remove();
+  }
+}
+
+// ════════ COLLEGE ADMIN - MEMBERS FUNCTIONS ════════
+function showAddMembersForm() {
+  showToast('Opening Add Members form...');
+  const addForm = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:500px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Add New Member</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Member Name</label>
+        <input class="fi" placeholder="Enter full name">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Email</label>
+        <input class="fi" type="email" placeholder="Enter email address">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Role</label>
+        <select class="fi"><option>Choose Role</option><option>Member</option><option>Admin</option><option>Super Admin</option></select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Department</label>
+        <select class="fi"><option>Choose Department</option><option>HR</option><option>Finance</option><option>Operations</option></select>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('Member added successfully!');this.closest('div').parentElement.remove()">Add Member</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', addForm);
+}
+
+function inviteMemberByEmail() {
+  const emailInput = document.getElementById('memberEmail');
+  const roleSelect = document.getElementById('memberRole');
   
-  syncResumeFields();
-});
+  if (!emailInput || !roleSelect) {
+    showToast('Please fill in all fields');
+    return;
+  }
+  
+  const email = emailInput.value.trim();
+  const role = roleSelect.value;
+  
+  if (!email || email === 'example@abc.com') {
+    showToast('Please enter a valid email address');
+    return;
+  }
+  
+  if (role === 'Choose Role') {
+    showToast('Please select a role');
+    return;
+  }
+  
+  showToast(`Invitation sent to ${email} as ${role}`);
+  emailInput.value = '';
+  roleSelect.selectedIndex = 0;
+}
+
+function assignJobsToMember(memberName, memberId) {
+  showToast(`Assigning jobs to ${memberName}...`);
+  const assignForm = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:600px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Assign Jobs to ${memberName}</h3>
+      <div style="margin-bottom:16px">
+        <label class="lbl">Select Jobs to Assign</label>
+        <div style="background:var(--surface2);padding:12px;border-radius:var(--r2);max-height:300px;overflow-y:auto">
+          <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer"><input type="checkbox"> Software Engineer - Infosys</label>
+          <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer"><input type="checkbox"> Data Analyst - TCS</label>
+          <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer"><input type="checkbox"> DevOps Engineer - Amazon</label>
+          <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer"><input type="checkbox"> Frontend Developer - Zoho</label>
+          <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer"><input type="checkbox"> Backend Developer - Freshworks</label>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="showToast('Jobs assigned successfully to ${memberName}!');this.closest('div').parentElement.remove()">Assign</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', assignForm);
+}
+
+function filterMembers(filter) {
+  showToast(`Showing ${filter.charAt(0).toUpperCase() + filter.slice(1)}`);
+  // Update active tab
+  document.querySelectorAll('#screen-cadm-members .cadm-tab').forEach((tab, idx) => {
+    tab.classList.remove('active');
+    if ((filter === 'all' && idx === 0) || (filter === 'centres' && idx === 1) || (filter === 'roles' && idx === 2) || (filter === 'groups' && idx === 3)) {
+      tab.classList.add('active');
+    }
+  });
+  // Filter/display based on filter type
+  const tableBody = document.querySelector('#screen-cadm-members tbody');
+  if (tableBody) {
+    tableBody.style.display = filter === 'all' ? '' : 'none'; // Show all for demo
+  }
+}
+
+
 
 
 </script>
