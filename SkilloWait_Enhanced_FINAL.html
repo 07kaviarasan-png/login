@@ -3421,6 +3421,56 @@ function grantCollegeAccess(records) {
   });
 }
 
+// 🔴 CRITICAL FIX: Add approved students to facultyBatches so College Admin database shows them
+function addStudentsToFacultyBatches(submission) {
+  if (!submission || !submission.records) {
+    console.log('❌ Invalid submission or no records');
+    return;
+  }
+  
+  // 🔴 FIX: Use college from submission, not activeCollegeAdmin (which is null during admin approval)
+  const college = submission.college || 'NIRMALA COLLEGE FOR WOMEN';
+  const dept = submission.department || 'CSE';
+  const batchKey = `${dept} - Batch ${new Date().getFullYear()}`;
+  
+  console.log(`📍 addStudentsToFacultyBatches: college="${college}", dept="${dept}", records=${submission.records.length}`);
+  
+  // Check if batch already exists for this college
+  let batch = facultyBatches.find(b => b.college === college && b.name === batchKey);
+  
+  if (!batch) {
+    // Create new batch
+    batch = {
+      name: batchKey,
+      college: college,
+      faculty: 'Faculty User',
+      students: []
+    };
+    facultyBatches.push(batch);
+    console.log(`✅ Created batch: ${batchKey} for ${college}`);
+    console.log(`📊 facultyBatches now has ${facultyBatches.length} batches`);
+  } else {
+    console.log(`📌 Batch already exists: ${batchKey}`);
+  }
+  
+  // Add students to this batch with approved status
+  submission.records.forEach(record => {
+    const studentExists = batch.students.some(s => s.roll === record.rollNo);
+    
+    if (!studentExists) {
+      batch.students.push({
+        roll: record.rollNo,
+        name: record.name,
+        status: 'approved',
+        year: new Date().getFullYear() - 1
+      });
+    }
+  });
+  
+  console.log(`✅ Added ${submission.records.length} students to ${college} - ${batchKey}`);
+  console.log(`📊 Final facultyBatches:`, facultyBatches);
+}
+
 // Function to verify if a student has access to college module
 function hasCollegeAccess(rollNo) {
   const normalized = String(rollNo).trim().toUpperCase();
@@ -3711,10 +3761,18 @@ function switchApprovalTab(tab){
   document.getElementById('appr-panel-cadmin').style.display  = tab==='cadmin'?'block':'none';
   document.getElementById('appr-tab-faculty').classList.toggle('active', tab==='faculty');
   document.getElementById('appr-tab-cadmin').classList.toggle('active',  tab==='cadmin');
+  
+  // 🔴 FIX: Refresh the admin console when switching tabs so faculty submissions appear
+  if (tab === 'faculty') {
+    updateAdminConsole();
+  }
 }
 
 function buildAdminApprovals(){
   updateApprovalsBadge();
+  // 🔴 FIX: Call updateAdminConsole to display faculty module submissions
+  updateAdminConsole();
+  
   // Summary
   const pF=allFacultyRequests.filter(r=>r.status==='pending').length;
   const pC=allCollegeAdminRequests.filter(r=>r.status==='pending').length;
@@ -5446,6 +5504,9 @@ function bestAttempt(history){
 function generateCollegeStudents(collegeName){
   // seed offset per college so scores differ
   const collegeSeeds = {
+    'SKASC':100,
+    'KCW':200,
+    'NIRMALA COLLEGE FOR WOMEN':300,
     'PSG College of Technology':100,
     'Anna University':200,
     'VIT Vellore':300,
@@ -5455,6 +5516,9 @@ function generateCollegeStudents(collegeName){
   const cs = collegeSeeds[collegeName]||100;
 
   const rawData = {
+    'SKASC': [],
+    'KCW': [],
+    'NIRMALA COLLEGE FOR WOMEN': [],
     'PSG College of Technology': [],
     'Anna University': [],
     'VIT Vellore': [],
@@ -7561,8 +7625,10 @@ function sendForAdminApproval() {
   // Generate submission ID
   const submissionId = 'SUB-' + Date.now().toString().slice(-8);
   
+  // 🔴 FIX: Include college info so approval knows which college's database to update
   const submission = {
     id: submissionId,
+    college: activeFacultyCollege || 'Nirmala College for Women',  // Add college
     department: facultyState.selectedDepartment,
     fileName: facultyState.uploadedFile.name,
     totalRecords: facultyState.extractedData.totalRecords,
@@ -7800,6 +7866,8 @@ function approveSubmission(submissionId) {
     // Grant college module access to all students in this submission
     if (submission.records && submission.records.length > 0) {
       grantCollegeAccess(submission.records);
+      // 🔴 FIX: Add approved students to facultyBatches so they appear in College Admin database
+      addStudentsToFacultyBatches(submission);
     }
     
     submission.status = 'Approved';
@@ -7861,6 +7929,8 @@ function approveAllPending() {
       // Grant college module access to all students in this submission
       if (submission.records && submission.records.length > 0) {
         grantCollegeAccess(submission.records);
+        // 🔴 FIX: Add approved students to facultyBatches for bulk approvals too
+        addStudentsToFacultyBatches(submission);
         totalStudents += submission.records.length;
       }
       
@@ -7916,6 +7986,11 @@ function updateAdminConsole() {
   }
   
   if (emptyState) emptyState.style.display = 'none';
+  
+  // 🔴 FIX: Refresh College Admin database after approvals
+  if (activeCollegeAdmin) {
+    buildCollegeDB();
+  }
   
   facultyState.adminPending.forEach(sub => {
     const card = document.createElement('div');
