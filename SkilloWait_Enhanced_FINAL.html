@@ -925,6 +925,13 @@ body.mobile-view #frole-faculty,body.mobile-view #frole-cadmin{font-size:11px;pa
         <!-- Faculty sub-panel -->
         <div id="fp-sub-faculty">
           <div class="linfo"><strong>Faculty login</strong> — Register your batch and add students. Admin approval grants students access to SkilloWait.</div>
+          <label class="lbl">Select College</label>
+          <select class="fi" id="fac-college">
+            <option value="">— Choose your college —</option>
+            <option value="SKASC">SKASC</option>
+            <option value="KCW">KCW</option>
+            <option value="NIRMALA COLLEGE FOR WOMEN">NIRMALA COLLEGE FOR WOMEN</option>
+          </select>
           <label class="lbl">Faculty ID / Email</label>
           <input class="fi" id="fac-email" placeholder="faculty@college.edu">
           <label class="lbl">Password</label>
@@ -940,11 +947,9 @@ body.mobile-view #frole-faculty,body.mobile-view #frole-cadmin{font-size:11px;pa
           <label class="lbl">Select College</label>
           <select class="fi" id="cadm-college">
             <option value="">— Choose your college —</option>
-            <option value="PSG College of Technology">PSG College of Technology</option>
-            <option value="Anna University">Anna University</option>
-            <option value="CIT Coimbatore">CIT Coimbatore</option>
-            <option value="SASTRA Deemed University">SASTRA Deemed University</option>
-            <option value="VIT Vellore">VIT Vellore</option>
+            <option value="SKASC">SKASC</option>
+            <option value="KCW">KCW</option>
+            <option value="NIRMALA COLLEGE FOR WOMEN">NIRMALA COLLEGE FOR WOMEN</option>
           </select>
           <label class="lbl">Admin ID</label>
           <input class="fi" id="cadm-id" placeholder="admin@college.edu">
@@ -2413,7 +2418,7 @@ Published Technical Blog on React Performance</textarea>
     </div>
     <div class="fp-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>Faculty Portal</div>
     <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
-      <div style="font-size:12px;color:var(--muted)">Signed in as <strong id="fp-faculty-name" style="color:var(--text)">—</strong></div>
+      <div style="font-size:12px;color:var(--muted)">Signed in as <strong id="fp-faculty-name" style="color:var(--text)">—</strong> · <strong id="fp-faculty-college" style="color:var(--teal)">—</strong></div>
       <button class="btn btn-o btn-sm" onclick="doFacultyLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Logout</button>
     </div>
   </div>
@@ -3430,16 +3435,20 @@ function getApprovedStudentInfo(rollNo) {
 
 let activeFacultyEmail = '';
 let activeFacultyBatchId = null;
+let activeFacultyCollege = ''; // Track faculty college
 
 async function doFacultyLogin(){
   const email = document.getElementById('fac-email').value.trim();
   const pass  = document.getElementById('fac-pass').value.trim();
+  const college = document.getElementById('fac-college').value.trim();
   const errEl = document.getElementById('fac-err');
+  
+  if(!college){errEl.style.display='block';errEl.textContent='Please select your college.';return;}
   if(!email){errEl.style.display='block';errEl.textContent='Please enter your Faculty ID / Email.';return;}
   if(!pass){errEl.style.display='block';errEl.textContent='Please enter your password.';return;}
 
   // Call backend first
-  const result = await apiPost('/auth/login',{ role:'faculty', email, password:pass });
+  const result = await apiPost('/auth/login',{ role:'faculty', email, password:pass, college });
 
   // Backend unavailable — fall through to local logic
   const existing = allFacultyRequests.find(r=>r.email===email);
@@ -3452,7 +3461,7 @@ async function doFacultyLogin(){
     if(!existing){
       allFacultyRequests.push({
         id:'fac-'+Date.now(), email, name:email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g,c=>c.toUpperCase()),
-        college: email.split('@')[1]||'Unknown College', requestedAt: new Date().toLocaleString('en-IN'), status:'pending'
+        college: college, requestedAt: new Date().toLocaleString('en-IN'), status:'pending'
       });
       updateApprovalsBadge();
     }
@@ -3462,7 +3471,7 @@ async function doFacultyLogin(){
   if(!existing){
     allFacultyRequests.push({
       id:'fac-'+Date.now(), email, name:email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g,c=>c.toUpperCase()),
-      college: email.split('@')[1]||'Unknown College', requestedAt: new Date().toLocaleString('en-IN'), status:'pending'
+      college: college, requestedAt: new Date().toLocaleString('en-IN'), status:'pending'
     });
     updateApprovalsBadge();
     errEl.style.display='block'; errEl.style.background='var(--amber-l)';errEl.style.borderColor='rgba(245,158,11,.3)';errEl.style.color='var(--amber)';
@@ -3481,8 +3490,10 @@ async function doFacultyLogin(){
   }
   errEl.style.display='none';
   activeFacultyEmail = email;
+  activeFacultyCollege = college; // Store college
   const displayName = result?.name || existing.name;
   document.getElementById('fp-faculty-name').textContent = displayName;
+  document.getElementById('fp-faculty-college').textContent = college;
   document.getElementById('login-page').style.display='none';
   document.getElementById('faculty-portal').classList.add('show');
   activeFacultyBatchId = null;
@@ -3492,6 +3503,7 @@ async function doFacultyLogin(){
 
 function doFacultyLogout(){
   activeFacultyEmail = '';
+  activeFacultyCollege = '';
   activeFacultyBatchId = null;
   document.getElementById('faculty-portal').classList.remove('show');
   document.getElementById('login-page').style.display='flex';
@@ -3509,11 +3521,11 @@ async function createBatch(){
   const batch = {
     id: 'batch-' + Date.now(),
     name, dept: dept||'—', faculty: displayName,
-    facultyEmail: activeFacultyEmail, students:[]
+    facultyEmail: activeFacultyEmail, college: activeFacultyCollege, students:[]
   };
   // Sync to backend
   const result = await apiPost('/faculty/batches',{
-    name, dept: dept||'—', college,
+    name, dept: dept||'—', college: activeFacultyCollege,
     faculty_email: activeFacultyEmail
   });
   if(result && result.batch_id) batch.id = result.batch_id;
@@ -5466,10 +5478,9 @@ function generateCollegeStudents(collegeName){
     };
   });
 
-  // Merge faculty-portal students
-  const keyword = collegeName.split(' ')[0].toLowerCase();
+  // Merge faculty-portal students — FILTER BY COLLEGE ONLY
   const fromFaculty = facultyBatches
-    .filter(b=>b.dept&&b.dept.toLowerCase().includes(keyword))
+    .filter(b=>b.college===collegeName) // Only same college
     .flatMap((b,bi)=>b.students.map((s,si)=>{
       const history = s.status==='approved'
         ? makeTestHistory(cs+500+(bi*100)+(si*37), Math.floor(Math.random()*5)+2)
