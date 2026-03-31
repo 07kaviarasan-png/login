@@ -1045,6 +1045,10 @@ body.mobile-view #frole-faculty,body.mobile-view #frole-cadmin{font-size:11px;pa
       <div class="nav-item" id="nav-cadm-members" onclick="ss('cadm-members','nav-cadm-members')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg><span class="nav-lbl">Members</span></div>
       <div class="nav-item" id="nav-cadm-company" onclick="ss('cadm-company','nav-cadm-company')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg><span class="nav-lbl">Company</span></div>
       <div class="nav-item" id="nav-cadm-mockiv" onclick="ss('cadm-mockiv','nav-cadm-mockiv')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="nav-lbl">Mock Interview</span></div>
+      <!-- 🔴 NEW: Schedule Test Feature -->
+      <div class="nav-item" id="nav-cadm-scheduletest" onclick="ss('cadm-scheduletest','nav-cadm-scheduletest')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="nav-lbl">Schedule Test</span></div>
+      <!-- 🔴 NEW: Learning Materials Feature -->
+      <div class="nav-item" id="nav-cadm-learning" onclick="ss('cadm-learning','nav-cadm-learning')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h10z"/></svg><span class="nav-lbl">Learning Materials</span></div>
       <div class="nav-sec">Tools</div>
       <div class="nav-item" id="nav-cadm-scores" onclick="ss('cadm-scores','nav-cadm-scores');buildCollegeScores()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span class="nav-lbl">Reports</span></div>
       <div class="nav-item" id="nav-cadm-events" onclick="ss('cadm-events','nav-cadm-events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="nav-lbl">Events</span></div>
@@ -2291,6 +2295,151 @@ Published Technical Blog on React Performance</textarea>
       <tr><td>3</td><td><b>Karthik M</b></td><td>Mar 20, 2025</td><td>Dr. R. Kumar</td><td>DevOps Engineer</td><td><span class="cpill cpill-green">Completed</span></td><td><span style="font-size:12px;font-weight:700;color:var(--amber)">★ 4.2/5</span></td><td><div style="display:flex;gap:4px"><span class="aib" title="View" onclick="viewMockInterview(3)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" onclick="deleteMockInterview(3)" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></div></td></tr>
     </tbody>
   </table></div></div>
+</div>
+
+<!-- 🔴 NEW: COLLEGE ADMIN — SCHEDULE TEST ══ -->
+<div class="screen" id="screen-cadm-scheduletest">
+  <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div><div class="pt">Schedule Test</div><div class="ps">Create and schedule aptitude tests for students by department and year</div></div>
+    <button class="btn btn-p" onclick="openScheduleTestModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Schedule New Test</button>
+  </div>
+
+  <!-- Test Filters -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;box-shadow:var(--sh)">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;">Filter Tests</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+      <div>
+        <label style="display:block;font-size:10px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase">Test Type</label>
+        <select id="filter-test-type" onchange="applyTestFilters()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+          <option value="">All Types</option>
+          <option value="Quantitative">Quantitative</option>
+          <option value="Verbal">Verbal</option>
+          <option value="Reasoning">Reasoning</option>
+          <option value="Data Interpretation">Data Interpretation</option>
+          <option value="Mixed">Mixed (All)</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:10px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase">Department</label>
+        <select id="filter-test-dept" onchange="applyTestFilters()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+          <option value="">All Departments</option>
+          <option value="CSE">CSE</option>
+          <option value="ECE">ECE</option>
+          <option value="Mechanical">Mechanical</option>
+          <option value="Civil">Civil</option>
+          <option value="EEE">EEE</option>
+          <option value="Chemical">Chemical</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:10px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase">Year</label>
+        <select id="filter-test-year" onchange="applyTestFilters()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+          <option value="">All Years</option>
+          <option value="1">1st Year</option>
+          <option value="2">2nd Year</option>
+          <option value="3">3rd Year</option>
+          <option value="4">4th Year</option>
+          <option value="5">5th Year</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tests Table -->
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="overflow-x:auto">
+      <table class="cadm-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Test Name</th><th>Test Type</th><th>Department</th><th>Year</th><th>Scheduled Date</th><th>Duration</th><th>Status</th><th>Students</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tests-tbody">
+          <tr><td>1</td><td><b>Quantitative - Round 1</b></td><td><span style="background:var(--blue-l);color:#0066cc;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">Quantitative</span></td><td>CSE</td><td>2nd</td><td>Apr 5, 2025 · 10:00 AM</td><td>60 min</td><td><span class="cpill cpill-blue">Upcoming</span></td><td><span style="font-weight:700">32</span> / 45</td><td style="display:flex;gap:4px"><span class="aib" title="Edit" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Delete" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></td></tr>
+          <tr><td>2</td><td><b>Verbal Ability Test</b></td><td><span style="background:var(--green-l);color:var(--green);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">Verbal</span></td><td>ECE</td><td>3rd</td><td>Apr 8, 2025 · 02:00 PM</td><td>45 min</td><td><span class="cpill cpill-blue">Upcoming</span></td><td><span style="font-weight:700">28</span> / 50</td><td style="display:flex;gap:4px"><span class="aib" title="Edit" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></span><span class="aib" title="Delete" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></td></tr>
+          <tr><td>3</td><td><b>Data Interpretation</b></td><td><span style="background:var(--purple-l);color:var(--purple);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">Data Interpretation</span></td><td>Mechanical</td><td>4th</td><td>Mar 25, 2025 · 11:00 AM</td><td>75 min</td><td><span class="cpill cpill-green">Completed</span></td><td><span style="font-weight:700">38</span> / 48</td><td style="display:flex;gap:4px"><span class="aib" title="View" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span><span class="aib" title="Delete" style="cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="3,6 5,6 21,6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 🔴 NEW: COLLEGE ADMIN — LEARNING MATERIALS ══ -->
+<div class="screen" id="screen-cadm-learning">
+  <div class="ph" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div><div class="pt">Learning Materials</div><div class="ps">Post and manage learning resources - videos, documents, and study materials</div></div>
+    <button class="btn btn-p" onclick="openPostMaterialModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Post Material</button>
+  </div>
+
+  <!-- Material Filter -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;box-shadow:var(--sh)">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;">Filter By</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:150px">
+        <select id="filter-material-type" onchange="applyMaterialFilters()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+          <option value="">All Types</option>
+          <option value="Video">Video (YouTube)</option>
+          <option value="Document">Document (PDF/Doc)</option>
+          <option value="Link">Link/Resource</option>
+        </select>
+      </div>
+      <div style="flex:1;min-width:150px">
+        <select id="filter-material-dept" onchange="applyMaterialFilters()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+          <option value="">All Departments</option>
+          <option value="CSE">CSE</option>
+          <option value="ECE">ECE</option>
+          <option value="Mechanical">Mechanical</option>
+          <option value="Civil">Civil</option>
+          <option value="EEE">EEE</option>
+          <option value="Chemical">Chemical</option>
+          <option value="General">General</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Materials Grid -->
+  <div id="materials-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+    <!-- Material Cards will be generated here -->
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:all .3s">
+      <div style="background:linear-gradient(135deg,#FF6B6B,#FF8787);height:160px;display:flex;align-items:center;justify-content:center;font-size:40px">🎥</div>
+      <div style="padding:16px">
+        <div style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">Data Structures Basics</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">CSE • Video (YouTube) • Posted: Mar 30</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px">
+          <span style="background:var(--blue-l);color:#0066cc;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">CSE</span>
+          <span style="background:var(--teal-l);color:var(--teal);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">Video</span>
+        </div>
+        <button class="btn btn-sm" onclick="playYouTubeVideo('dQw4w9WgXcQ')" style="width:100%;padding:8px;background:var(--blue-l);color:#0066cc;border:1.5px solid rgba(0,102,204,.2);border-radius:var(--r2);font-size:11px;font-weight:600;cursor:pointer">▶ Play Video</button>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:all .3s">
+      <div style="background:linear-gradient(135deg,#4ECDC4,#44A08D);height:160px;display:flex;align-items:center;justify-content:center;font-size:40px">📄</div>
+      <div style="padding:16px">
+        <div style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">Aptitude Formulas Guide</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">General • Document (PDF) • Posted: Mar 28</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px">
+          <span style="background:var(--green-l);color:var(--green);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">General</span>
+          <span style="background:var(--amber-l);color:var(--amber);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">Document</span>
+        </div>
+        <button class="btn btn-sm" onclick="downloadMaterial('Formulas.pdf')" style="width:100%;padding:8px;background:var(--green-l);color:var(--green);border:1.5px solid rgba(14,159,110,.2);border-radius:var(--r2);font-size:11px;font-weight:600;cursor:pointer">⬇ Download PDF</button>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:all .3s">
+      <div style="background:linear-gradient(135deg,#FFB347,#FFA500);height:160px;display:flex;align-items:center;justify-content:center;font-size:40px">🔗</div>
+      <div style="padding:16px">
+        <div style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">Quantitative Reasoning Course</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px">CSE, ECE • External Link • Posted: Mar 25</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px">
+          <span style="background:var(--purple-l);color:var(--purple);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">CSE</span>
+          <span style="background:var(--red-l);color:var(--red);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600">Link</span>
+        </div>
+        <button class="btn btn-sm" onclick="window.open('https://example.com/course')" style="width:100%;padding:8px;background:var(--red-l);color:var(--red);border:1.5px solid rgba(239,68,68,.2);border-radius:var(--r2);font-size:11px;font-weight:600;cursor:pointer">🔗 Open Link</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ══ COLLEGE ADMIN — EVENTS ══ -->
@@ -8692,6 +8841,210 @@ function deleteMockInterview(id) {
     // Remove the row from table
     event.target.closest('tr').remove();
   }
+}
+
+// 🔴 NEW: COLLEGE ADMIN - SCHEDULE TEST FUNCTIONS ════════
+function openScheduleTestModal() {
+  const modal = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:600px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Schedule New Test</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Test Name</label>
+        <input class="fi" placeholder="e.g., Quantitative Aptitude - Round 1" id="test-name">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Test Type</label>
+        <select class="fi" id="test-type">
+          <option>Select Test Type</option>
+          <option>Quantitative</option>
+          <option>Verbal</option>
+          <option>Reasoning</option>
+          <option>Data Interpretation</option>
+          <option>Mixed (All)</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Department</label>
+        <select class="fi" id="test-dept">
+          <option>Select Department</option>
+          <option>CSE</option>
+          <option>ECE</option>
+          <option>Mechanical</option>
+          <option>Civil</option>
+          <option>EEE</option>
+          <option>Chemical</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Year</label>
+        <select class="fi" id="test-year">
+          <option>Select Year</option>
+          <option>1st Year</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+          <option>5th Year</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label class="lbl">Date</label>
+          <input class="fi" type="date" id="test-date">
+        </div>
+        <div>
+          <label class="lbl">Time</label>
+          <input class="fi" type="time" id="test-time">
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Duration (minutes)</label>
+        <input class="fi" type="number" placeholder="60" id="test-duration">
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="createTest()">Schedule Test</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modal);
+}
+
+function createTest() {
+  const name = document.getElementById('test-name').value.trim();
+  const type = document.getElementById('test-type').value;
+  const dept = document.getElementById('test-dept').value;
+  const year = document.getElementById('test-year').value;
+  const date = document.getElementById('test-date').value;
+  const time = document.getElementById('test-time').value;
+  const duration = document.getElementById('test-duration').value;
+  
+  if (!name || type === 'Select Test Type' || dept === 'Select Department' || year === 'Select Year') {
+    showToast('⚠ Please fill all required fields');
+    return;
+  }
+  
+  showToast(`✓ Test "${name}" scheduled successfully!`);
+  document.querySelector('[style*="position:fixed"][style*="z-index:300"]').parentElement.remove();
+  document.querySelector('[style*="position:fixed"][style*="z-index:299"]').remove();
+}
+
+function applyTestFilters() {
+  const type = document.getElementById('filter-test-type')?.value || '';
+  const dept = document.getElementById('filter-test-dept')?.value || '';
+  const year = document.getElementById('filter-test-year')?.value || '';
+  showToast(`Filtering tests: ${type || 'All'} | ${dept || 'All Depts'} | ${year || 'All Years'}`);
+}
+
+// 🔴 NEW: COLLEGE ADMIN - LEARNING MATERIALS FUNCTIONS ════════
+function openPostMaterialModal() {
+  const modal = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:24px;z-index:300;max-width:600px;width:90%;box-shadow:var(--sh2);overflow-y:auto;max-height:90vh">
+      <h3 style="margin-bottom:16px;font-size:16px;font-weight:700">Post Learning Material</h3>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Material Title</label>
+        <input class="fi" placeholder="Enter material title" id="material-title">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Material Type</label>
+        <select class="fi" id="material-type" onchange="toggleMaterialInput()">
+          <option>Select Type</option>
+          <option value="Video">Video (YouTube URL)</option>
+          <option value="Document">Document (PDF/Word)</option>
+          <option value="Link">External Link</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">YouTube URL / Document Link</label>
+        <input class="fi" placeholder="https://youtu.be/... or file URL" id="material-url">
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Department(s)</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text);cursor:pointer">
+            <input type="checkbox" value="CSE" class="material-dept"> CSE
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text);cursor:pointer">
+            <input type="checkbox" value="ECE" class="material-dept"> ECE
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text);cursor:pointer">
+            <input type="checkbox" value="Mechanical" class="material-dept"> Mechanical
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text);cursor:pointer">
+            <input type="checkbox" value="General" class="material-dept"> General
+          </label>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="lbl">Description</label>
+        <textarea class="fi" style="resize:vertical;min-height:80px" placeholder="Brief description of the material" id="material-desc"></textarea>
+      </div>
+      <div style="margin-bottom:16px;display:flex;gap:8px">
+        <button class="btn btn-p" style="flex:1" onclick="postMaterial()">Post Material</button>
+        <button class="btn btn-o" style="flex:1" onclick="this.closest('div').parentElement.remove()">Cancel</button>
+      </div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.2);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modal);
+}
+
+function toggleMaterialInput() {
+  const type = document.getElementById('material-type').value;
+  const input = document.getElementById('material-url');
+  if (type === 'Video') {
+    input.placeholder = 'https://youtu.be/dQw4w9WgXcQ';
+  } else if (type === 'Document') {
+    input.placeholder = 'PDF or Document URL';
+  } else {
+    input.placeholder = 'Full URL to resource';
+  }
+}
+
+function postMaterial() {
+  const title = document.getElementById('material-title').value.trim();
+  const type = document.getElementById('material-type').value;
+  const url = document.getElementById('material-url').value.trim();
+  const depts = Array.from(document.querySelectorAll('.material-dept:checked')).map(c => c.value);
+  
+  if (!title || type === 'Select Type' || !url || depts.length === 0) {
+    showToast('⚠ Please fill all required fields');
+    return;
+  }
+  
+  showToast(`✓ Material "${title}" posted successfully!`);
+  document.querySelector('[style*="position:fixed"][style*="z-index:300"]').parentElement.remove();
+  document.querySelector('[style*="position:fixed"][style*="z-index:299"]').remove();
+}
+
+function applyMaterialFilters() {
+  const type = document.getElementById('filter-material-type')?.value || '';
+  const dept = document.getElementById('filter-material-dept')?.value || '';
+  showToast(`Filtering materials: ${type || 'All Types'} | ${dept || 'All Depts'}`);
+}
+
+function playYouTubeVideo(videoId) {
+  const modal = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border-radius:var(--r);padding:16px;z-index:300;max-width:800px;width:90%;box-shadow:var(--sh2)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <h3 style="font-size:16px;font-weight:700">Video Player</h3>
+        <button onclick="this.closest('div').parentElement.remove();document.querySelector('[style*=z-index:299]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <iframe width="100%" height="400" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:var(--r2)"></iframe>
+      <div style="margin-top:12px;padding:12px;background:var(--surface2);border-radius:var(--r2);font-size:12px;color:var(--muted)">You can skip, pause, and control the video playback above ▲</div>
+    </div>
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:299;backdrop-filter:blur(4px)" onclick="this.remove();this.nextElementSibling.remove()"></div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modal);
+}
+
+function downloadMaterial(fileName) {
+  showToast(`⬇ Downloading ${fileName}...`);
+  // Simulate file download
+  const link = document.createElement('a');
+  link.href = '#';
+  link.download = fileName;
+  showToast(`✓ ${fileName} ready for download`);
 }
 
 // ════════ COLLEGE ADMIN - MEMBERS FUNCTIONS ════════
