@@ -3446,11 +3446,12 @@ function addStudentsToFacultyBatches(submission) {
     batch = {
       name: batchKey,
       college: college,
-      faculty: 'Faculty User',
+      faculty: submission.facultyName || 'Faculty User', // 🔴 NEW: Use dynamic faculty name from submission
+      facultyEmail: submission.facultyEmail || 'faculty@college.edu', // Store faculty email too
       students: []
     };
     facultyBatches.push(batch);
-    console.log(`✅ Created batch: ${batchKey} for ${college}`);
+    console.log(`✅ Created batch: ${batchKey} for ${college} by ${submission.facultyName}`);
     console.log(`📊 facultyBatches now has ${facultyBatches.length} batches`);
   } else {
     console.log(`📌 Batch already exists: ${batchKey}`);
@@ -3489,6 +3490,7 @@ function getApprovedStudentInfo(rollNo) {
 let activeFacultyEmail = '';
 let activeFacultyBatchId = null;
 let activeFacultyCollege = ''; // Track faculty college
+let activeFacultyName = ''; // 🔴 NEW: Track faculty name for submissions
 
 async function doFacultyLogin(){
   const email = document.getElementById('fac-email').value.trim();
@@ -3545,6 +3547,7 @@ async function doFacultyLogin(){
   activeFacultyEmail = email;
   activeFacultyCollege = college; // Store college
   const displayName = result?.name || existing.name;
+  activeFacultyName = displayName; // 🔴 NEW: Store faculty name
   document.getElementById('fp-faculty-name').textContent = displayName;
   document.getElementById('fp-faculty-college').textContent = college;
   document.getElementById('login-page').style.display='none';
@@ -3557,6 +3560,7 @@ async function doFacultyLogin(){
 function doFacultyLogout(){
   activeFacultyEmail = '';
   activeFacultyCollege = '';
+  activeFacultyName = ''; // 🔴 NEW: Clear faculty name on logout
   activeFacultyBatchId = null;
   document.getElementById('faculty-portal').classList.remove('show');
   document.getElementById('login-page').style.display='flex';
@@ -7764,7 +7768,9 @@ function sendForAdminApproval() {
     totalRecords: facultyState.extractedData.totalRecords,
     records: facultyState.extractedData.records,
     submittedAt: new Date().toLocaleString(),
-    status: 'Pending'
+    status: 'Pending',
+    facultyName: activeFacultyName || 'Faculty User', // 🔴 NEW: Add faculty name
+    facultyEmail: activeFacultyEmail || 'faculty@college.edu' // Add faculty email
   };
   
   // Add to faculty submissions
