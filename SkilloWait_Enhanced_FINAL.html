@@ -3403,7 +3403,7 @@ let approvedStudents = {
 };
 
 // Function to grant college module access to approved students
-function grantCollegeAccess(records) {
+function grantCollegeAccess(records, college, department) {
   // Records is an array of { rollNo, name }
   records.forEach(record => {
     const rollNo = String(record.rollNo).trim().toUpperCase();
@@ -3415,7 +3415,10 @@ function grantCollegeAccess(records) {
         rollNo: rollNo,
         approvedAt: new Date().toLocaleString(),
         accessGranted: true,
-        status: 'approved'
+        status: 'approved',
+        college: college || 'NIRMALA COLLEGE FOR WOMEN',  // Store college for filtering
+        department: department || 'CSE',  // Store department for filtering
+        year: new Date().getFullYear() - 1  // Store year (2 for 2nd year, etc)
       };
     }
   });
@@ -3983,12 +3986,47 @@ function showStudentView(view) {
     } else {
       html += `
         <div style="padding:16px;background:var(--surface2);border-bottom:1px solid var(--border)">
-          <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
             <div>
               <div style="font-weight:700;font-size:14px;color:var(--text)">Approved Students with College Access</div>
               <div style="font-size:12px;color:var(--muted);margin-top:2px">Total: ${approvedCount} students</div>
             </div>
             <div style="padding:8px 12px;background:var(--green-l);color:var(--green);border-radius:20px;font-size:12px;font-weight:700">✓ Active Access</div>
+          </div>
+          
+          <!-- 🔴 NEW: Filter Controls for College, Department, Year -->
+          <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--border)">
+            <div style="flex:1;min-width:200px">
+              <label style="display:block;font-size:10px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase">College</label>
+              <select id="filter-student-college" onchange="filterApprovedStudents()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+                <option value="">All Colleges</option>
+                <option value="SKASC">SKASC</option>
+                <option value="KCW">KCW</option>
+                <option value="NIRMALA COLLEGE FOR WOMEN">NIRMALA COLLEGE FOR WOMEN</option>
+              </select>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <label style="display:block;font-size:10px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase">Department</label>
+              <select id="filter-student-dept" onchange="filterApprovedStudents()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+                <option value="">All Departments</option>
+                <option value="CSE">CSE</option>
+                <option value="ECE">ECE</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Civil">Civil</option>
+                <option value="EEE">EEE</option>
+                <option value="Chemical">Chemical</option>
+              </select>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <label style="display:block;font-size:10px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase">Year</label>
+              <select id="filter-student-year" onchange="filterApprovedStudents()" style="width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:12px;color:var(--text);background:var(--surface)">
+                <option value="">All Years</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+              </select>
+            </div>
           </div>
         </div>
       `;
@@ -4160,6 +4198,98 @@ function showStudentView(view) {
         }
       }
     }
+  }
+  
+  contentDiv.innerHTML = html;
+}
+
+// 🔴 NEW: Filter function for approved students by college, department, year
+function filterApprovedStudents() {
+  const college = document.getElementById('filter-student-college')?.value || '';
+  const dept = document.getElementById('filter-student-dept')?.value || '';
+  const year = document.getElementById('filter-student-year')?.value || '';
+  
+  const contentDiv = document.getElementById('student-view-content');
+  const approvedCount = Object.keys(approvedStudents).length;
+  
+  if (approvedCount === 0) {
+    contentDiv.innerHTML = `<div class="empty-state" style="padding:48px;text-align:center">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="opacity:0.3;margin:0 auto;display:block">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <div style="margin-top:12px;font-size:14px;font-weight:600">No Approved Students Yet</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px">Students approved from faculty submissions will appear here</div>
+    </div>`;
+    return;
+  }
+  
+  // Filter students based on selected criteria
+  const filtered = Object.entries(approvedStudents).filter(([rollNo, studentData]) => {
+    const matchCollege = !college || studentData.college === college;
+    const matchDept = !dept || studentData.department === dept;
+    const matchYear = !year || String(studentData.year) === year;
+    return matchCollege && matchDept && matchYear;
+  });
+  
+  if (filtered.length === 0) {
+    contentDiv.innerHTML = `<div class="empty-state" style="padding:48px;text-align:center">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="opacity:0.3;margin:0 auto;display:block">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <div style="margin-top:12px;font-size:14px;font-weight:600">No Students Found</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px">Try adjusting your filters</div>
+    </div>`;
+    return;
+  }
+  
+  let html = '';
+  
+  // Group filtered students by department
+  const grouped = {};
+  filtered.forEach(([rollNo, studentData]) => {
+    const deptKey = studentData.department || 'Other';
+    if (!grouped[deptKey]) grouped[deptKey] = [];
+    grouped[deptKey].push({ rollNo, ...studentData });
+  });
+  
+  // Display by department
+  for (const [deptKey, students] of Object.entries(grouped)) {
+    html += `<div class="adm-section-hdr">
+      <span style="display:flex;align-items:center;gap:8px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" width="13" height="13">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Department: ${deptKey || 'Not Specified'}
+      </span>
+      <span>${students.length} students</span>
+    </div>`;
+    
+    students.forEach(student => {
+      const initials = student.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+      html += `<div class="adm-student-row" style="background:linear-gradient(90deg, rgba(14,159,110,0.05), transparent)">
+        <div class="adm-stav" style="background:linear-gradient(135deg,var(--green),#14B97F);border:2px solid var(--green-l);box-shadow:0 2px 8px rgba(14,159,110,0.15)">${initials}</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:var(--text)">${student.name}</div>
+          <div style="font-size:11px;color:var(--muted);display:flex;gap:12px;margin-top:4px">
+            <span style="display:flex;align-items:center;gap:4px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              </svg>
+              <strong style="color:var(--text)">${student.rollNo}</strong>
+            </span>
+            <span style="display:flex;align-items:center;gap:4px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                <circle cx="12" cy="12" r="1"/><path d="M12 7v5m0 5v.01"/>
+              </svg>
+              Approved: ${student.approvedAt}
+            </span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="status-pill sp-approved" style="background:var(--green-l);color:var(--green);border:1px solid rgba(14,159,110,.3)">✓ College Access</span>
+        </div>
+      </div>`;
+    });
   }
   
   contentDiv.innerHTML = html;
@@ -7865,7 +7995,8 @@ function approveSubmission(submissionId) {
     
     // Grant college module access to all students in this submission
     if (submission.records && submission.records.length > 0) {
-      grantCollegeAccess(submission.records);
+      // 🔴 FIX: Pass college and department to grantCollegeAccess for filtering
+      grantCollegeAccess(submission.records, submission.college, submission.department);
       // 🔴 FIX: Add approved students to facultyBatches so they appear in College Admin database
       addStudentsToFacultyBatches(submission);
     }
@@ -7928,7 +8059,8 @@ function approveAllPending() {
       
       // Grant college module access to all students in this submission
       if (submission.records && submission.records.length > 0) {
-        grantCollegeAccess(submission.records);
+        // 🔴 FIX: Pass college and department to grantCollegeAccess for bulk approvals
+        grantCollegeAccess(submission.records, submission.college, submission.department);
         // 🔴 FIX: Add approved students to facultyBatches for bulk approvals too
         addStudentsToFacultyBatches(submission);
         totalStudents += submission.records.length;
